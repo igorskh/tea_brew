@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tea_brew/styles/colors.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -13,11 +12,14 @@ class Header extends StatelessWidget {
           "TeaBrew",
           style: TextStyle(
             fontSize: 24,
-            color: primaryColor,
+            color: Colors.white,
           ),
         ),
-        SvgPicture.asset("assets/vectors/leaf.svg",
-            semanticsLabel: 'Application Logo')
+        SvgPicture.asset(
+          "assets/vectors/leaf.svg",
+          semanticsLabel: 'Application Logo',
+          color: Colors.white,
+        )
       ],
     );
   }

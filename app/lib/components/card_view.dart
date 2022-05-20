@@ -3,11 +3,14 @@ import 'package:tea_brew/styles/colors.dart';
 import 'package:tea_brew/styles/decorations.dart';
 
 class CardView extends StatelessWidget {
-  const CardView({Key? key}) : super(key: key);
+  const CardView({Key? key, required this.id}) : super(key: key);
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: backgroundAccentColor,
         borderRadius: cardCorners,
@@ -15,27 +18,12 @@ class CardView extends StatelessWidget {
           cardShadow,
         ],
       ),
-      child: Stack(
-        alignment: Alignment.topCenter,
+      child: Wrap(
         children: [
-          Positioned(
-            top: 80,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(200.0),
-              child: Stack(
-                children: [
-                  Image.network(
-                    "https://media.graphassets.com/output=format:jpg/resize=width:200,height:200/IFagt21xS8SPPs642vBl",
-                    scale: 0.9,
-                  ),
-                ],
-              ),
-            ),
-          ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 10.0, bottom: 50.0, left: 10.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Green Tea".toUpperCase(),
@@ -52,7 +40,13 @@ class CardView extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.network(
+              "https://media.graphassets.com/output=format:jpg/resize=width:200,height:200/IFagt21xS8SPPs642vBl",
+            ),
+          ),
         ],
       ),
     );

@@ -8,4 +8,4 @@ part 'app_route_information_parser.dart';
 part 'app_router_delegate.dart';
 part 'parse_route.dart';
 
-enum AppPages { home, settings, unknown }
+enum AppPages { home, settings, unknown, detail, timer }

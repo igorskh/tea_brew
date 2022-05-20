@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tea_brew/components/card_view.dart';
 import 'package:tea_brew/core/router/bloc/router_bloc.dart';
 
@@ -15,14 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _navigateDetail() {
-    BlocProvider.of<RouterBloc>(context).add(
-      RouterPush(route: AppRoute.unknown()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    void _navigateDetail(String id) {
+      BlocProvider.of<RouterBloc>(context).add(
+        RouterPush(route: AppRoute.detail(teaID: id)),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: CustomScrollView(
@@ -36,16 +35,27 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate(
-                    (ctx, index) {
-                  return const CardView();
+                (ctx, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      _navigateDetail("$index");
+                    },
+                    child: Hero(
+                      tag: "header-$index",
+                      child: Material(child: CardView(id: "$index")),
+                    ),
+                  );
                 },
                 childCount: 10,
               ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  crossAxisCount: 2
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 1.0,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                crossAxisCount:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 2
+                        : 4,
               ),
             ),
           ),

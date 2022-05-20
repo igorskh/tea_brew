@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:tea_brew/pages/home.dart';
+import 'package:tea_brew/pages/catalog/detail.dart';
+import 'package:tea_brew/pages/timer/timer.dart';
 import 'package:tea_brew/pages/unknown.dart';
 
 import 'router.dart';
@@ -15,6 +17,10 @@ Page routeToPage(AppRoute route) {
     child = const HomePage();
   } else if (route.isPage(AppPages.settings)) {
     child = const HomePage();
+  } else if (route.isPage(AppPages.detail)) {
+    child = DetailsPage(id: route.teaID);
+  } else if (route.isPage(AppPages.timer)) {
+    child = TimerPage(id: route.teaID);
   } else {
     child = const UnknownPage();
   }
