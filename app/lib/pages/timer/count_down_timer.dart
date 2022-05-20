@@ -12,12 +12,10 @@ class CountDownTimer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimerBloc, TimerState>(
       builder: (context, state) {
-        return GridView.count(
-          childAspectRatio: 1.2,
-          crossAxisCount:
-              MediaQuery.of(context).orientation == Orientation.portrait
-                  ? 1
-                  : 2,
+        return Flex(
+          direction: MediaQuery.of(context).orientation == Orientation.portrait
+              ? Axis.vertical
+              : Axis.horizontal,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -25,7 +23,7 @@ class CountDownTimer extends StatelessWidget {
                 timerState: state,
               ),
             ),
-            TimerTeaInformationView(timerState: state),
+            Expanded(child: TimerTeaInformationView(timerState: state)),
           ],
         );
       },
