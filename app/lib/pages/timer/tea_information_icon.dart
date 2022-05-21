@@ -17,9 +17,9 @@ class TeaInformationIcon extends StatelessWidget {
       children: [
         ClipOval(
           child: Material(
-            color: textColor, // Button color
+            color: textColor,
             child: InkWell(
-              splashColor: primaryColor, // Splash color
+              splashColor: primaryColor,
               onTap: () {},
               child: SizedBox(
                 width: 56,
