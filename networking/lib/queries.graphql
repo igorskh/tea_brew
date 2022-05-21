@@ -1,0 +1,15 @@
+query FetchCategories($locales: [Locale!]! = [en]) {
+  teaCategories: teaCategories(locales: $locales) {
+    ...TeaCategorySummary
+  }
+}
+
+fragment TeaCategorySummary on TeaCategory {
+  locale
+  createdAt
+  id
+  title
+  image {
+    id
+  }
+}

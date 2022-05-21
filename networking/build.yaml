@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          scalars:
+            ISODateTime:
+              type: DateTime
+              fromJsonFunctionName: dateTimeFromJson
+              toJsonFunctionName: dateTimeToJson
+              import: package:appolo/scalars.dart
+          clients:
+            - graphql

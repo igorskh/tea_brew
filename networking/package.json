@@ -1,0 +1,17 @@
+{
+  "name": "appolo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "apollo schema:download",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "apollo": "^2.33.11",
+    "get-graphql-schema": "^2.1.2",
+    "graphql": "^16.5.0"
+  }
+}
