@@ -20,6 +20,6 @@ class TimerReset extends TimerEvent {
 }
 
 class TimerTick extends TimerEvent {
-  final int progress;
-  const TimerTick({required this.progress});
+  final int remaining;
+  const TimerTick({required this.remaining});
 }

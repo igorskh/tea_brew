@@ -15,7 +15,7 @@ class TimerTeaInformationView extends StatelessWidget {
   final TimerState timerState;
 
   void _toggleTimer(BuildContext context) {
-    if (timerState is TimerStarted) {
+    if (timerState is TimerProgressed || timerState is TimerStarted) {
       BlocProvider.of<TimerBloc>(context).add(
         const TimerPause(),
       );
@@ -24,6 +24,12 @@ class TimerTeaInformationView extends StatelessWidget {
         const TimerStart(duration: 30),
       );
     }
+  }
+
+  void _resetTimer(BuildContext context) {
+    BlocProvider.of<TimerBloc>(context).add(
+      const TimerReset(),
+    );
   }
 
   @override
@@ -49,9 +55,33 @@ class TimerTeaInformationView extends StatelessWidget {
               TeaInformationIcon(iconData: Icons.water_drop, text: "120 ml"),
             ],
           ),
-          ElevatedButton(
-            onPressed: () => _toggleTimer(context),
-            child: Text(timerState is TimerStarted ? "Pause" : "Start"),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(80, 80),
+                  shape: const CircleBorder(),
+                ),
+                onPressed: () => _toggleTimer(context),
+                child: Icon(
+                  (timerState is TimerProgressed || timerState is TimerStarted)
+                      ? Icons.pause
+                      : Icons.play_arrow,
+                  color: backgroundColor,
+                  size: 42,
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: textColor,
+                  fixedSize: const Size(40, 40),
+                  shape: const CircleBorder(),
+                ),
+                onPressed: () => _resetTimer(context),
+                child: const Icon(Icons.restore),
+              ),
+            ],
           ),
         ],
       ),

@@ -2,24 +2,28 @@ part of 'timer_bloc.dart';
 
 class TimerState {
   final int duration;
-  final int progress;
+  final int remaining;
   final int lap;
 
-  const TimerState({required this.duration, this.progress = 0, this.lap = 0});
+  const TimerState({this.duration = 0, this.remaining = 0, this.lap = 0});
 }
 
 class TimerStopped extends TimerState {
-  TimerStopped({required super.duration, super.progress, super.lap});
+  TimerStopped({super.duration, super.remaining, super.lap});
 }
 
 class TimerStarted extends TimerState {
-  TimerStarted({required super.duration, super.progress, super.lap});
+  TimerStarted({super.duration, super.remaining, super.lap});
+}
+
+class TimerProgressed extends TimerState {
+  TimerProgressed({super.duration, super.remaining, super.lap});
 }
 
 class TimerPaused extends TimerState {
-  TimerPaused({required super.duration, super.progress, super.lap});
+  TimerPaused({super.duration, super.remaining, super.lap});
 }
 
 class TimerCompleted extends TimerState {
-  TimerCompleted({required super.duration, super.progress, super.lap});
+  TimerCompleted({super.duration, super.remaining, super.lap});
 }

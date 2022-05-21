@@ -30,25 +30,26 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _startTimer(int duration) {
     _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker.tick(ticks: duration).listen((progress) {
-      add(TimerTick(progress: progress));
+    _tickerSubscription = _ticker.tick(ticks: duration).listen((remaining) {
+      add(TimerTick(remaining: remaining));
     });
   }
 
   void _onTimerStart(TimerStart event, Emitter<TimerState> emit) {
     if (state is TimerPaused) {
+      emit(TimerStarted(
+        duration: event.duration,
+        remaining: state.remaining,
+        lap: state.lap,
+      ));
       _tickerSubscription?.resume();
-      emit(TimerStarted(
-        duration: event.duration,
-        progress: state.progress,
-        lap: state.lap,
-      ));
     } else {
-      _startTimer(event.duration);
       emit(TimerStarted(
         duration: event.duration,
+        remaining: event.duration,
         lap: state.lap,
       ));
+      _startTimer(event.duration);
     }
   }
 
@@ -57,6 +58,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
     emit(TimerStarted(
       duration: state.duration,
+      remaining: state.duration,
+      lap: state.lap,
     ));
   }
 
@@ -65,22 +68,22 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
     emit(TimerPaused(
       duration: state.duration,
-      progress: state.progress,
+      remaining: state.remaining,
       lap: state.lap,
     ));
   }
 
   void _onTimerTick(TimerTick event, Emitter<TimerState> emit) {
-    if (event.progress == 0) {
+    if (event.remaining == 0) {
       emit(TimerCompleted(
         duration: state.duration,
-        progress: event.progress,
+        remaining: event.remaining,
         lap: state.lap + 1,
       ));
     } else {
-      emit(TimerStarted(
+      emit(TimerProgressed(
         duration: state.duration,
-        progress: event.progress,
+        remaining: event.remaining,
         lap: state.lap,
       ));
     }
