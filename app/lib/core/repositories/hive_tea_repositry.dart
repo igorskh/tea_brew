@@ -35,15 +35,25 @@ class HiveTeaRepository implements AbstractTeaRepository {
 
   @override
   Future<Tea> createTea(Tea tea) async {
-    tea.category = null;
-    await teaBox.add(tea);
-    return tea;
+    try {
+      teaBox.values.firstWhere((element) => tea.id == element.id);
+      return Future.error('Tea already exists');
+    } on StateError {
+      tea.category = null;
+      await teaBox.add(tea);
+      return tea;
+    }
   }
 
   @override
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) async {
-    await categoryBox.add(teaCategory);
-    return teaCategory;
+    try {
+      categoryBox.values.firstWhere((element) => teaCategory.id == element.id);
+      return Future.error('Tea already exists');
+    } on StateError {
+      await categoryBox.add(teaCategory);
+      return teaCategory;
+    }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/repositories/hive_tea_repositry.dart';
 
@@ -43,8 +45,9 @@ final sampleTeas = [
 
 extension HiveTeaRepositoryMockData on HiveTeaRepository {
   Future<void> createMockData() async {
-    await categoryBox.clear();
-    await teaBox.clear();
+    await cleanMockData();
+
+    developer.log("Creating mock data", name: "HiveTeaRepositoryMockData");
 
     for (TeaCategory teaCategory in sampleTeaCategories) {
       await createTeaCategory(teaCategory);
@@ -53,5 +56,12 @@ extension HiveTeaRepositoryMockData on HiveTeaRepository {
     for (Tea tea in sampleTeas) {
       await createTea(tea);
     }
+  }
+
+  Future<void> cleanMockData() async {
+    developer.log("Cleaning Hive data", name: "HiveTeaRepositoryMockData");
+
+    await categoryBox.clear();
+    await teaBox.clear();
   }
 }

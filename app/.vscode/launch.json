@@ -15,8 +15,25 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main_hive.dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "app (hive) mock",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_hive.dart",
             "args": [
-                "--dart-define=MOCK_DATA=yes"
+                "--dart-define=HIVE_MOCK_DATA=yes"
+            ],
+            "flutterMode": "debug"
+        },
+        {
+            "name": "app (hive-mock) clean",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_hive.dart",
+            "args": [
+                "--dart-define=HIVE_CLEAN_DATA=yes"
             ],
             "flutterMode": "debug"
         },

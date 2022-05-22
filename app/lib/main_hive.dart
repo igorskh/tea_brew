@@ -21,8 +21,12 @@ void main(List<String> args) async {
     teaBox: teaBox,
   );
 
-  if (const bool.hasEnvironment("MOCK_DATA")) {
+  if (const bool.hasEnvironment("HIVE_MOCK_DATA")) {
     await teaRepository.createMockData();
+  }
+
+  if (const bool.hasEnvironment("HIVE_CLEAN_DATA")) {
+    await teaRepository.cleanMockData();
   }
 
   runApp(TeaApp(

@@ -24,12 +24,21 @@ class SyncTeaRepository implements AbstractTeaRepository {
 
   @override
   Future<Tea> createTea(Tea tea) {
+    if (teaBox.indexWhere((element) => tea.id == element.id) > -1) {
+      return Future.error('Tea already exists');
+    }
+
     teaBox.add(tea);
     return Future.sync(() => tea);
   }
 
   @override
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) {
+    if (teaCategoryBox.indexWhere((element) => teaCategory.id == element.id) >
+        -1) {
+      return Future.error('Tea category already exists');
+    }
+
     teaCategoryBox.add(teaCategory);
     return Future.sync(() => teaCategory);
   }
