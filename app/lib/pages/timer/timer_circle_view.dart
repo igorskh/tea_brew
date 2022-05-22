@@ -29,7 +29,7 @@ class _TimerCircleViewState extends State<TimerCircleView>
   late AnimationController _animationController;
   late StreamSubscription<TimerState> _timerStateController;
 
-  Duration _fastTransitDuration = const Duration(milliseconds: 100);
+  final Duration _fastTransitDuration = const Duration(milliseconds: 100);
 
   @override
   void initState() {

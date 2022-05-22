@@ -2,8 +2,9 @@
 
 Tea catalog and timer
 
-## Generate JSON models
+## Generate models
 
 ```bash
-flutter pub run build_runner build
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
+

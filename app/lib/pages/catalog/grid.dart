@@ -34,6 +34,13 @@ class CatalogGrid extends StatelessWidget {
               future: _getTeas(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  if (snapshot.requireData.isEmpty) {
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: Text("No data"),
+                      ),
+                    );
+                  }
                   return SliverGrid(
                     delegate: SliverChildBuilderDelegate(
                       (ctx, i) {
@@ -64,7 +71,7 @@ class CatalogGrid extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return const SliverFillRemaining(
+                  return const SliverToBoxAdapter(
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),

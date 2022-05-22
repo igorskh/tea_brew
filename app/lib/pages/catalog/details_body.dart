@@ -66,10 +66,11 @@ class DetailsBody extends StatelessWidget {
                 childAspectRatio: 3.0,
                 crossAxisCount: 2,
                 children: [
-                  _buildTableCell(
-                    "Type",
-                    tea.category.title,
-                  ),
+                  if (tea.category != null)
+                    _buildTableCell(
+                      "Type",
+                      tea.category!.title,
+                    ),
                   if (tea.origin != null)
                     _buildTableCell(
                       "Origin",

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:tea_brew/core/repositories/sync_tea_repository.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/colors.dart';
@@ -12,19 +11,22 @@ import 'core/router/bloc/router_bloc.dart';
 import 'core/router/router.dart';
 
 class TeaApp extends StatelessWidget {
-  TeaApp({Key? key}) : super(key: key) {
+  TeaApp({
+    Key? key,
+    required this.teaRepository,
+  }) : super(key: key) {
     _routerBloc = RouterBloc();
     _timerBloc = TimerBloc(ticker: const Ticker());
   }
 
   late final RouterBloc _routerBloc;
   late final TimerBloc _timerBloc;
-  late final AbstractTeaRepository _teaRepository = SyncTeaRepository();
+  final AbstractTeaRepository teaRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AbstractTeaRepository>(
-      create: (_) => _teaRepository,
+      create: (_) => teaRepository,
       child: MultiBlocProvider(
         providers: [
           BlocProvider<RouterBloc>(create: (_) => _routerBloc),

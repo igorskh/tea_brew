@@ -27,12 +27,13 @@ class CardView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  tea.category.title.toUpperCase(),
-                  style: const TextStyle(
-                    color: textColor,
+                if (tea.category != null)
+                  Text(
+                    tea.category!.title.toUpperCase(),
+                    style: const TextStyle(
+                      color: textColor,
+                    ),
                   ),
-                ),
                 Text(
                   tea.title,
                   style: const TextStyle(
