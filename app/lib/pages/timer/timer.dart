@@ -13,7 +13,7 @@ class TimerPage extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: CountDownTimer(
-          duration: tea.steepingTime!,
+          tea: tea,
         ),
       ),
     );

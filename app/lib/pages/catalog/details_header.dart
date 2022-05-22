@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tea_brew/core/models/tea.dart';
 
 import 'package:tea_brew/styles/colors.dart';
 
 class DetailsHeader extends StatelessWidget {
-  const DetailsHeader({Key? key}) : super(key: key);
+  const DetailsHeader({
+    Key? key,
+    required this.tea,
+  }) : super(key: key);
+
+  final Tea tea;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class DetailsHeader extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Image.network(
-              "https://media.graphassets.com/output=format:jpg/resize=width:200,height:200/IFagt21xS8SPPs642vBl",
+              tea.imageURL!,
             ),
           ),
         ),

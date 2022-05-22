@@ -21,9 +21,15 @@ class DetailsPage extends StatelessWidget {
           children: [
             Hero(
               tag: "header-${tea.id}",
-              child: const Material(child: DetailsHeader()),
+              child: Material(
+                child: DetailsHeader(tea: tea),
             ),
-            Expanded(child: DetailsBody(tea: tea)),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: DetailsBody(tea: tea),
+              ),
+            ),
           ],
         ),
       ),

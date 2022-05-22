@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tea_brew/core/models/tea.dart';
 
 import 'package:tea_brew/core/timer/timer.dart';
 
@@ -7,9 +8,9 @@ import 'timer_circle_view.dart';
 import 'timer_tea_information_view.dart';
 
 class CountDownTimer extends StatelessWidget {
-  const CountDownTimer({Key? key, required this.duration}) : super(key: key);
+  const CountDownTimer({Key? key, required this.tea}) : super(key: key);
 
-  final int duration;
+  final Tea tea;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,15 @@ class CountDownTimer extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: TimerCircleView(
                 timerState: state,
-                duration: duration,
+                duration: tea.steepingTime!,
               ),
             ),
-            Expanded(child: TimerTeaInformationView(timerState: state)),
+            Expanded(
+              child: TimerTeaInformationView(
+                timerState: state,
+                tea: tea,
+              ),
+            ),
           ],
         );
       },

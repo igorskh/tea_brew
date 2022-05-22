@@ -42,10 +42,12 @@ class DetailsBody extends StatelessWidget {
                 style: textTitleStyle,
               ),
             ),
+            if (tea.description != null)
             Text(
               tea.description!,
               style: textBodyStyle,
             ),
+            if (tea.steepingTime != null)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: ElevatedButton(

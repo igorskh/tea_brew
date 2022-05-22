@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tea_brew/core/models/tea.dart';
 
 import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/colors.dart';
@@ -10,9 +11,11 @@ class TimerTeaInformationView extends StatelessWidget {
   const TimerTeaInformationView({
     Key? key,
     required this.timerState,
+    required this.tea,
   }) : super(key: key);
 
   final TimerState timerState;
+  final Tea tea;
 
   void _toggleTimer(BuildContext context) {
     if (timerState is TimerProgressed || timerState is TimerStarted) {
@@ -21,7 +24,7 @@ class TimerTeaInformationView extends StatelessWidget {
       );
     } else {
       BlocProvider.of<TimerBloc>(context).add(
-        const TimerStart(duration: 20),
+          TimerStart(duration: tea.steepingTime!),
       );
     }
   }
@@ -40,7 +43,7 @@ class TimerTeaInformationView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Text(
-            "Gyokuro Kiwami".toUpperCase(),
+            tea.title.toUpperCase(),
             style: const TextStyle(
               fontSize: 24.0,
               color: textColor,
@@ -49,10 +52,18 @@ class TimerTeaInformationView extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              TeaInformationIcon(iconData: Icons.scale, text: "1-2 tbsp"),
-              TeaInformationIcon(iconData: Icons.whatshot, text: "100 °C"),
-              TeaInformationIcon(iconData: Icons.water_drop, text: "120 ml"),
+            children: [
+              if (tea.steepingAmount != null)
+                TeaInformationIcon(
+                    iconData: Icons.scale, text: tea.steepingAmount!),
+              if (tea.steepingTemperature != null)
+                TeaInformationIcon(
+                    iconData: Icons.whatshot,
+                    text: "${tea.steepingTemperature!} °C"),
+              if (tea.amountOfWater != null)
+                TeaInformationIcon(
+                    iconData: Icons.water_drop,
+                    text: "${tea.amountOfWater!} ml"),
             ],
           ),
           Column(

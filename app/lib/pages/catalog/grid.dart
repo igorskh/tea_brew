@@ -37,15 +37,16 @@ class CatalogGrid extends StatelessWidget {
                   return SliverGrid(
                     delegate: SliverChildBuilderDelegate(
                       (ctx, i) {
+                        var tea = snapshot.requireData[i];
                         return GestureDetector(
                           onTap: () {
-                            _navigateDetail(snapshot.requireData[i]);
+                            _navigateDetail(tea);
                           },
                           child: Hero(
-                            tag: "header-$i",
+                            tag: "header-${tea.id}",
                             child: Material(
                                 child: CardView(
-                              tea: snapshot.requireData[i],
+                              tea: tea,
                             )),
                           ),
                         );
