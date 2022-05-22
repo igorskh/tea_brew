@@ -24,8 +24,6 @@ class AppRoute {
     var resPath = '/${AppRoute.pagePrefix(page)}';
     if (page == AppPages.detail) {
       resPath = '$resPath/${tea!.id}';
-    } else if (page == AppPages.timer) {
-      resPath = '$resPath/${tea!.id}';
     }
     return resPath;
   }
@@ -50,7 +48,7 @@ class AppRoute {
   AppRoute.settings() : page = AppPages.settings;
 
   AppRoute.detail({required this.tea}) : page = AppPages.detail;
-  AppRoute.timer({required this.tea}) : page = AppPages.timer;
+  AppRoute.timer() : page = AppPages.timer;
 
   AppRoute.unknown() : page = AppPages.unknown;
 

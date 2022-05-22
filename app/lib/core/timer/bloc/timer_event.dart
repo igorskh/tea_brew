@@ -12,9 +12,9 @@ class TimerStart extends TimerEvent {
 }
 
 class TimerConfigure extends TimerEvent {
-  final int duration;
+  final Tea tea;
 
-  const TimerConfigure({required this.duration});
+  const TimerConfigure({required this.tea});
 }
 
 class TimerPause extends TimerEvent {

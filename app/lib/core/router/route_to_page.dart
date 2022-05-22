@@ -20,7 +20,7 @@ Page routeToPage(AppRoute route) {
   } else if (route.isPage(AppPages.detail)) {
     child = DetailsPage(tea: route.tea!);
   } else if (route.isPage(AppPages.timer)) {
-    child = TimerPage(tea: route.tea!);
+    child = const TimerPage();
   } else {
     child = const UnknownPage();
   }

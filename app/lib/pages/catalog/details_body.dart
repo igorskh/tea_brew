@@ -13,16 +13,33 @@ class DetailsBody extends StatelessWidget {
 
   final Tea tea;
 
+  Widget _buildTableCell(String title, String value) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toUpperCase(),
+          style: textSubtitleStyle,
+        ),
+        Text(
+          value,
+          style: textBodyBoldStyle,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     void _navigateTimer() {
       BlocProvider.of<TimerBloc>(context).add(
-        TimerConfigure(duration: tea.steepingTime!),
+        TimerConfigure(tea: tea),
       );
 
       BlocProvider.of<RouterBloc>(context).add(
         RouterPush(
-          route: AppRoute.timer(tea: tea),
+          route: AppRoute.timer(),
         ),
       );
     }
@@ -41,6 +58,34 @@ class DetailsBody extends StatelessWidget {
               child: Text(
                 tea.title,
                 style: textTitleStyle,
+              ),
+            ),
+            SizedBox(
+              height: 175,
+              child: GridView.count(
+                childAspectRatio: 3.0,
+                crossAxisCount: 2,
+                children: [
+                  _buildTableCell(
+                    "Type",
+                    tea.category.title,
+                  ),
+                  if (tea.origin != null)
+                    _buildTableCell(
+                      "Origin",
+                      tea.origin!,
+                    ),
+                  if (tea.steepingTime != null)
+                    _buildTableCell(
+                      "Steeping time",
+                      "${tea.steepingTime} s",
+                    ),
+                  if (tea.steepingTemperature != null)
+                    _buildTableCell(
+                      "Temperature",
+                      "${tea.steepingTemperature} °C",
+                    ),
+                ],
               ),
             ),
             if (tea.description != null)

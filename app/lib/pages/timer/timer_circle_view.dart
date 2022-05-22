@@ -29,6 +29,8 @@ class _TimerCircleViewState extends State<TimerCircleView>
   late AnimationController _animationController;
   late StreamSubscription<TimerState> _timerStateController;
 
+  Duration _fastTransitDuration = const Duration(milliseconds: 100);
+
   @override
   void initState() {
     super.initState();
@@ -43,11 +45,19 @@ class _TimerCircleViewState extends State<TimerCircleView>
       Future.delayed(const Duration(milliseconds: 1), () {
         _animationController.duration = Duration(seconds: state.duration);
         if (state is TimerProgressed) {
-          _animationController.reverse(from: state.remaining / state.duration);
+          _animationController.reverse(
+            from: state.remaining / state.duration,
+          );
         } else if (state is TimerPaused) {
-          _animationController.animateTo(state.remaining / state.duration);
+          _animationController.animateTo(
+            state.remaining / state.duration,
+            duration: _fastTransitDuration,
+          );
         } else {
-          _animationController.animateTo(1.0);
+          _animationController.animateTo(
+            1.0,
+            duration: _fastTransitDuration,
+          );
         }
       });
     });
@@ -58,15 +68,21 @@ class _TimerCircleViewState extends State<TimerCircleView>
       switch (state.runtimeType) {
         case TimerStarted:
           _animationController.duration = Duration(seconds: state.duration);
-          _animationController.reverse(from: state.remaining / state.duration);
+          _animationController.reverse(
+            from: state.remaining / state.duration,
+          );
           return;
         case TimerCompleted:
-          _animationController.animateTo(0.0,
-              duration: const Duration(milliseconds: 500));
+          _animationController.animateTo(
+            0.0,
+            duration: _fastTransitDuration,
+          );
           return;
         case TimerStopped:
-          _animationController.animateTo(1.0,
-              duration: const Duration(milliseconds: 500));
+          _animationController.animateTo(
+            1.0,
+            duration: _fastTransitDuration,
+          );
           return;
         case TimerPaused:
           _animationController.stop();

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:tea_brew/core/models/models.dart';
 
 import '../ticker.dart';
 
@@ -32,6 +33,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _startTimer(int duration) {
     _tickerSubscription?.cancel();
+
     _tickerSubscription = _ticker.tick(ticks: duration).listen((remaining) {
       add(TimerTick(remaining: remaining));
     });
@@ -43,6 +45,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         duration: event.duration,
         remaining: state.remaining,
         lap: state.lap,
+        tea: state.tea,
       ));
       _tickerSubscription?.resume();
     } else {
@@ -50,6 +53,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         duration: event.duration,
         remaining: event.duration,
         lap: state.lap,
+        tea: state.tea,
       ));
       _startTimer(event.duration);
     }
@@ -62,6 +66,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       duration: state.duration,
       remaining: state.duration,
       lap: state.lap,
+      tea: state.tea,
     ));
   }
 
@@ -72,6 +77,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       duration: state.duration,
       remaining: state.duration,
       lap: state.lap + 1,
+      tea: state.tea,
     ));
   }
 
@@ -82,6 +88,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       duration: state.duration,
       remaining: state.remaining,
       lap: state.lap,
+      tea: state.tea,
     ));
   }
 
@@ -91,12 +98,14 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         duration: state.duration,
         remaining: state.duration,
         lap: state.lap + 1,
+        tea: state.tea,
       ));
     } else {
       emit(TimerProgressed(
         duration: state.duration,
         remaining: event.remaining,
         lap: state.lap,
+        tea: state.tea,
       ));
     }
   }
@@ -104,9 +113,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   void _onTimerConfigure(TimerConfigure event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
     emit(TimerStopped(
-      duration: event.duration,
-      remaining: event.duration,
+      duration: event.tea.steepingTime!,
+      remaining: event.tea.steepingTime!,
       lap: 0,
+      tea: event.tea,
     ));
   }
 }
