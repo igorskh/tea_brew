@@ -23,7 +23,7 @@ class DetailsPage extends StatelessWidget {
               tag: "header-${tea.id}",
               child: Material(
                 child: DetailsHeader(tea: tea),
-            ),
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
