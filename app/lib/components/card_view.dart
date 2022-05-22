@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/styles/colors.dart';
 import 'package:tea_brew/styles/decorations.dart';
 
 class CardView extends StatelessWidget {
-  const CardView({Key? key, required this.id}) : super(key: key);
+  const CardView({Key? key, required this.tea}) : super(key: key);
 
-  final String id;
+  final Tea tea;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +28,14 @@ class CardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Green Tea".toUpperCase(),
+                  tea.category.title.toUpperCase(),
                   style: const TextStyle(
                     color: textColor,
                   ),
                 ),
-                const Text(
-                  "Gyokuro Kiwami",
-                  style: TextStyle(
+                Text(
+                  tea.title,
+                  style: const TextStyle(
                     color: textColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -44,7 +46,7 @@ class CardView extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Image.network(
-              "https://media.graphassets.com/output=format:jpg/resize=width:200,height:200/IFagt21xS8SPPs642vBl",
+              tea.imageURL!,
             ),
           ),
         ],

@@ -1,18 +1,24 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tea_brew/core/timer/bloc/timer_bloc.dart';
+
+import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/colors.dart';
-import 'dart:math' as math;
 
 import 'custom_timer_painter.dart';
 import 'steep_count_row.dart';
 
 class TimerCircleView extends StatefulWidget {
-  const TimerCircleView({Key? key, required this.timerState}) : super(key: key);
+  const TimerCircleView({
+    Key? key,
+    required this.timerState,
+    required this.duration,
+  }) : super(key: key);
 
   final TimerState timerState;
+  final int duration;
 
   @override
   State<TimerCircleView> createState() => _TimerCircleViewState();
@@ -35,11 +41,13 @@ class _TimerCircleViewState extends State<TimerCircleView>
     TimerState state = BlocProvider.of<TimerBloc>(context).state;
     setState(() {
       Future.delayed(const Duration(milliseconds: 1), () {
+        _animationController.duration = Duration(seconds: state.duration);
         if (state is TimerProgressed) {
-          _animationController.duration = Duration(seconds: state.duration);
           _animationController.reverse(from: state.remaining / state.duration);
-        } else {
+        } else if (state is TimerPaused) {
           _animationController.animateTo(state.remaining / state.duration);
+        } else {
+          _animationController.animateTo(1.0);
         }
       });
     });

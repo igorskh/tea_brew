@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tea_brew/core/timer/bloc/timer_bloc.dart';
 
+import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/colors.dart';
 
 import 'tea_information_icon.dart';
@@ -21,7 +21,7 @@ class TimerTeaInformationView extends StatelessWidget {
       );
     } else {
       BlocProvider.of<TimerBloc>(context).add(
-        const TimerStart(duration: 30),
+        const TimerStart(duration: 20),
       );
     }
   }

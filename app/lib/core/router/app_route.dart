@@ -18,13 +18,14 @@ class AppRoute {
 
   final AppPages page;
   String teaID = "";
+  Tea? tea;
 
   String get path {
     var resPath = '/${AppRoute.pagePrefix(page)}';
     if (page == AppPages.detail) {
-      resPath = '$resPath/$teaID';
+      resPath = '$resPath/${tea!.id}';
     } else if (page == AppPages.timer) {
-      resPath = '$resPath/$teaID';
+      resPath = '$resPath/${tea!.id}';
     }
     return resPath;
   }
@@ -48,8 +49,8 @@ class AppRoute {
 
   AppRoute.settings() : page = AppPages.settings;
 
-  AppRoute.detail({required this.teaID}) : page = AppPages.detail;
-  AppRoute.timer({required this.teaID}) : page = AppPages.timer;
+  AppRoute.detail({required this.tea}) : page = AppPages.detail;
+  AppRoute.timer({required this.tea}) : page = AppPages.timer;
 
   AppRoute.unknown() : page = AppPages.unknown;
 

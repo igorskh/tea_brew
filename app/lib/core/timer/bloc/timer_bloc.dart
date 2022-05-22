@@ -21,11 +21,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
-        super(TimerStopped(duration: 0)) {
+        super(TimerStopped(duration: 1)) {
     on<TimerStart>(_onTimerStart);
     on<TimerReset>(_onTimerReset);
     on<TimerPause>(_onTimerPause);
     on<TimerTick>(_onTimerTick);
+    on<TimerConfigure>(_onTimerConfigure);
   }
 
   void _startTimer(int duration) {
@@ -77,7 +78,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     if (event.remaining == 0) {
       emit(TimerCompleted(
         duration: state.duration,
-        remaining: event.remaining,
+        remaining: state.duration,
         lap: state.lap + 1,
       ));
     } else {
@@ -87,5 +88,14 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         lap: state.lap,
       ));
     }
+  }
+
+  void _onTimerConfigure(TimerConfigure event, Emitter<TimerState> emit) {
+    _tickerSubscription?.cancel();
+    emit(TimerStopped(
+      duration: event.duration,
+      remaining: event.duration,
+      lap: 0,
+    ));
   }
 }

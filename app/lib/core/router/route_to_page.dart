@@ -18,9 +18,9 @@ Page routeToPage(AppRoute route) {
   } else if (route.isPage(AppPages.settings)) {
     child = const HomePage();
   } else if (route.isPage(AppPages.detail)) {
-    child = DetailsPage(id: route.teaID);
+    child = DetailsPage(tea: route.tea!);
   } else if (route.isPage(AppPages.timer)) {
-    child = TimerPage(id: route.teaID);
+    child = TimerPage(tea: route.tea!);
   } else {
     child = const UnknownPage();
   }
