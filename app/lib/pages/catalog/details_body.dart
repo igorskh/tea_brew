@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/router/bloc/router_bloc.dart';
 import 'package:tea_brew/core/router/router.dart';
-import 'package:tea_brew/core/timer/bloc/timer_bloc.dart';
+import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/decorations.dart';
 import 'package:tea_brew/styles/text.dart';
 
@@ -43,16 +44,16 @@ class DetailsBody extends StatelessWidget {
               ),
             ),
             if (tea.description != null)
-            Text(
-              tea.description!,
-              style: textBodyStyle,
-            ),
+              Text(
+                tea.description!,
+                style: textBodyStyle,
+              ),
             if (tea.steepingTime != null)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: ElevatedButton(
-                  onPressed: _navigateTimer, child: const Text("Brew")),
-            )
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: ElevatedButton(
+                    onPressed: _navigateTimer, child: const Text("Brew")),
+              )
           ],
         ),
       ),

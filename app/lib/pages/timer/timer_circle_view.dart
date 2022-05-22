@@ -61,9 +61,13 @@ class _TimerCircleViewState extends State<TimerCircleView>
           _animationController.reverse(from: state.remaining / state.duration);
           return;
         case TimerCompleted:
-          _animationController.animateTo(0.0);
+          _animationController.animateTo(0.0,
+              duration: const Duration(milliseconds: 500));
           return;
         case TimerStopped:
+          _animationController.animateTo(1.0,
+              duration: const Duration(milliseconds: 500));
+          return;
         case TimerPaused:
           _animationController.stop();
           return;

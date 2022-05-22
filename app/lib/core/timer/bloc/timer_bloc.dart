@@ -24,6 +24,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         super(TimerStopped(duration: 1)) {
     on<TimerStart>(_onTimerStart);
     on<TimerReset>(_onTimerReset);
+    on<TimerSkip>(_onTimerSkip);
     on<TimerPause>(_onTimerPause);
     on<TimerTick>(_onTimerTick);
     on<TimerConfigure>(_onTimerConfigure);
@@ -55,12 +56,22 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _onTimerReset(TimerReset event, Emitter<TimerState> emit) {
-    _startTimer(state.duration);
+    _tickerSubscription?.pause();
 
-    emit(TimerStarted(
+    emit(TimerStopped(
       duration: state.duration,
       remaining: state.duration,
       lap: state.lap,
+    ));
+  }
+
+  void _onTimerSkip(TimerSkip event, Emitter<TimerState> emit) {
+    _tickerSubscription?.pause();
+
+    emit(TimerStopped(
+      duration: state.duration,
+      remaining: state.duration,
+      lap: state.lap + 1,
     ));
   }
 

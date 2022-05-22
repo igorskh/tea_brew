@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tea_brew/core/models/tea.dart';
 
 import 'package:tea_brew/core/timer/timer.dart';
+import 'package:tea_brew/styles/buttons.dart';
 import 'package:tea_brew/styles/colors.dart';
 
 import 'tea_information_icon.dart';
@@ -17,26 +18,32 @@ class TimerTeaInformationView extends StatelessWidget {
   final TimerState timerState;
   final Tea tea;
 
-  void _toggleTimer(BuildContext context) {
-    if (timerState is TimerProgressed || timerState is TimerStarted) {
-      BlocProvider.of<TimerBloc>(context).add(
-        const TimerPause(),
-      );
-    } else {
-      BlocProvider.of<TimerBloc>(context).add(
-          TimerStart(duration: tea.steepingTime!),
-      );
-    }
-  }
-
-  void _resetTimer(BuildContext context) {
-    BlocProvider.of<TimerBloc>(context).add(
-      const TimerReset(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    void _toggleTimer() {
+      if (timerState is TimerProgressed || timerState is TimerStarted) {
+        BlocProvider.of<TimerBloc>(context).add(
+          const TimerPause(),
+        );
+      } else {
+        BlocProvider.of<TimerBloc>(context).add(
+          TimerStart(duration: tea.steepingTime!),
+        );
+      }
+    }
+
+    void _resetTimer() {
+      BlocProvider.of<TimerBloc>(context).add(
+        const TimerReset(),
+      );
+    }
+
+    void _skipTimer() {
+      BlocProvider.of<TimerBloc>(context).add(
+        const TimerSkip(),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -66,15 +73,17 @@ class TimerTeaInformationView extends StatelessWidget {
                     text: "${tea.amountOfWater!} ml"),
             ],
           ),
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(80, 80),
-                  shape: const CircleBorder(),
-                ),
-                onPressed: () => _toggleTimer(context),
+                style: smallButtonStyle,
+                onPressed: () => _resetTimer(),
+                child: const Icon(Icons.restore),
+              ),
+              ElevatedButton(
+                style: largeButtonStyle,
+                onPressed: () => _toggleTimer(),
                 child: Icon(
                   (timerState is TimerProgressed || timerState is TimerStarted)
                       ? Icons.pause
@@ -84,13 +93,9 @@ class TimerTeaInformationView extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: textColor,
-                  fixedSize: const Size(40, 40),
-                  shape: const CircleBorder(),
-                ),
-                onPressed: () => _resetTimer(context),
-                child: const Icon(Icons.restore),
+                style: smallButtonStyle,
+                onPressed: () => _skipTimer(),
+                child: const Icon(Icons.skip_next),
               ),
             ],
           ),
