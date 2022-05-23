@@ -19,8 +19,8 @@ class TeaAdapter extends TypeAdapter<Tea> {
     return Tea(
       id: fields[0] as String,
       title: fields[1] as String,
-      origin: fields[4] as String?,
       categoryID: fields[2] as String,
+      origin: fields[4] as String?,
       description: fields[3] as String?,
       steepingTime: fields[5] as int?,
       steepingTemperature: fields[6] as int?,
@@ -77,8 +77,8 @@ class TeaAdapter extends TypeAdapter<Tea> {
 Tea _$TeaFromJson(Map<String, dynamic> json) => Tea(
       id: json['id'] as String,
       title: json['title'] as String,
-      origin: json['origin'] as String?,
       categoryID: json['categoryID'] as String,
+      origin: json['origin'] as String?,
       category: json['category'] == null
           ? null
           : TeaCategory.fromJson(json['category'] as Map<String, dynamic>),

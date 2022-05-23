@@ -23,3 +23,15 @@ const textSubtitleStyle = TextStyle(
   color: textColor,
   fontSize: 16,
 );
+
+const textCategoryActiveStyle = TextStyle(
+  color: textColor,
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+);
+
+const textCategoryInactiveStyle = TextStyle(
+  color: textInactiveColor,
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+);

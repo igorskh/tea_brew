@@ -11,8 +11,8 @@ class Tea extends HiveObject {
   Tea({
     required this.id,
     required this.title,
-    required this.origin,
     required this.categoryID,
+    this.origin,
     this.category,
     this.description,
     this.steepingTime,

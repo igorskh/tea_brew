@@ -21,6 +21,11 @@ class HiveTeaRepository implements AbstractTeaRepository {
   @override
   Future<List<Tea>> fetchTeas(String? categoryID) async {
     var teas = teaBox.values.toList();
+
+    if (categoryID != null) {
+      teas = teas.where((tea) => tea.categoryID == categoryID).toList();
+    }
+
     for (int i = 0; i < teas.length; i++) {
       try {
         teas[i].category =
@@ -30,7 +35,7 @@ class HiveTeaRepository implements AbstractTeaRepository {
       }
     }
 
-    return Future.sync(() => teaBox.values.toList());
+    return Future.sync(() => teas);
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tea_brew/core/catalog/bloc/catalog_bloc.dart';
 
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 import 'package:tea_brew/core/timer/timer.dart';
@@ -16,11 +17,9 @@ class TeaApp extends StatelessWidget {
     required this.teaRepository,
   }) : super(key: key) {
     _routerBloc = RouterBloc();
-    _timerBloc = TimerBloc(ticker: const Ticker());
   }
 
   late final RouterBloc _routerBloc;
-  late final TimerBloc _timerBloc;
   final AbstractTeaRepository teaRepository;
 
   @override
@@ -30,7 +29,9 @@ class TeaApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<RouterBloc>(create: (_) => _routerBloc),
-          BlocProvider<TimerBloc>(create: (_) => _timerBloc),
+          BlocProvider<TimerBloc>(
+              create: (_) => TimerBloc(ticker: const Ticker())),
+          BlocProvider<CatalogBloc>(create: (_) => CatalogBloc()),
         ],
         child: MaterialApp.router(
           routerDelegate: AppRouterDelegate(routerBloc: _routerBloc),

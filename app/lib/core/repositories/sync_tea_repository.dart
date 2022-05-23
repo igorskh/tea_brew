@@ -16,7 +16,7 @@ class SyncTeaRepository implements AbstractTeaRepository {
   @override
   Future<List<Tea>> fetchTeas(String? categoryID) {
     List<Tea> teas = teaBox;
-    if (categoryID != null) {
+    if (categoryID != null && categoryID != "") {
       teas = teas.where((t) => t.categoryID == categoryID).toList();
     }
     return Future.sync(() => teas);

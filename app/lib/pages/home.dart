@@ -4,7 +4,7 @@ import 'package:tea_brew/core/router/bloc/router_bloc.dart';
 import 'package:tea_brew/core/router/router.dart';
 import 'package:tea_brew/core/timer/bloc/timer_bloc.dart';
 
-import 'catalog/grid.dart';
+import 'catalog/catalog_grid.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
