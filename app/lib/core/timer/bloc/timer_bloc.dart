@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meta/meta.dart';
+import 'package:timezone/timezone.dart' as tz;
+
 import 'package:tea_brew/core/models/models.dart';
 
 import '../ticker.dart';
@@ -11,6 +14,7 @@ part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
+  final FlutterLocalNotificationsPlugin localNotificationsPlugin;
 
   StreamSubscription<int>? _tickerSubscription;
 
@@ -20,8 +24,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     return super.close();
   }
 
-  TimerBloc({required Ticker ticker})
-      : _ticker = ticker,
+  TimerBloc({
+    required Ticker ticker,
+    required this.localNotificationsPlugin,
+  })  : _ticker = ticker,
         super(TimerStopped(duration: 1)) {
     on<TimerStart>(_onTimerStart);
     on<TimerReset>(_onTimerReset);
@@ -39,28 +45,48 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     });
   }
 
+  void _cancelScheduleTimer(bool scheduleNew, {int? duration}) {
+    localNotificationsPlugin.cancel(0).then((value) {
+      if (scheduleNew && duration != null) {
+        localNotificationsPlugin.zonedSchedule(
+            0,
+            'Your tea is ready!',
+            '${state.tea?.title ?? "Your tea"} is brewed.',
+            tz.TZDateTime.now(tz.local).add(Duration(seconds: duration)),
+            const NotificationDetails(
+              android: AndroidNotificationDetails(
+                  'notification channel id', 'notification channel name',
+                  channelDescription: 'notification description'),
+            ),
+            androidAllowWhileIdle: true,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime);
+      }
+    });
+  }
+
   void _onTimerStart(TimerStart event, Emitter<TimerState> emit) {
+    var scheduledDuration = 0;
     if (state is TimerPaused) {
-      emit(TimerStarted(
-        duration: event.duration,
-        remaining: state.remaining,
-        lap: state.lap,
-        tea: state.tea,
-      ));
+      scheduledDuration = state.remaining;
       _tickerSubscription?.resume();
     } else {
-      emit(TimerStarted(
-        duration: event.duration,
-        remaining: event.duration,
-        lap: state.lap,
-        tea: state.tea,
-      ));
+      scheduledDuration = event.duration;
       _startTimer(event.duration);
     }
+    emit(TimerStarted(
+      duration: event.duration,
+      remaining: scheduledDuration,
+      lap: state.lap,
+      tea: state.tea,
+    ));
+
+    _cancelScheduleTimer(true, duration: scheduledDuration);
   }
 
   void _onTimerReset(TimerReset event, Emitter<TimerState> emit) {
     _tickerSubscription?.pause();
+    _cancelScheduleTimer(false);
 
     emit(TimerStopped(
       duration: state.duration,
@@ -72,6 +98,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onTimerSkip(TimerSkip event, Emitter<TimerState> emit) {
     _tickerSubscription?.pause();
+    _cancelScheduleTimer(false);
 
     emit(TimerStopped(
       duration: state.duration,
@@ -83,6 +110,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onTimerPause(TimerPause event, Emitter<TimerState> emit) {
     _tickerSubscription?.pause();
+    _cancelScheduleTimer(false);
 
     emit(TimerPaused(
       duration: state.duration,
@@ -112,6 +140,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onTimerConfigure(TimerConfigure event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
+    _cancelScheduleTimer(false);
+
     emit(TimerStopped(
       duration: event.tea.steepingTime!,
       remaining: event.tea.steepingTime!,

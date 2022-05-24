@@ -5,9 +5,13 @@ import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/repositories/hive_tea_repositry.dart';
 import 'package:tea_brew/core/repositories/mock_data.dart';
 
+import 'setup_local_notifications.dart';
 import 'tea_app.dart';
 
 void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await setupTimezone();
   await Hive.initFlutter();
 
   Hive.registerAdapter(TeaAdapter());
