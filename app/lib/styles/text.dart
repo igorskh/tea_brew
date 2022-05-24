@@ -35,3 +35,8 @@ const textCategoryInactiveStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.bold,
 );
+
+String formatTimerString(int remaining) {
+  Duration duration = Duration(seconds: remaining);
+  return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+}

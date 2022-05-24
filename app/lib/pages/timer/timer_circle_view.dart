@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/colors.dart';
+import 'package:tea_brew/styles/text.dart';
 
 import 'custom_timer_painter.dart';
 import 'steep_count_row.dart';
@@ -98,11 +99,6 @@ class _TimerCircleViewState extends State<TimerCircleView>
     super.dispose();
   }
 
-  String _timerString(int remaining) {
-    Duration duration = Duration(seconds: remaining);
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-  }
-
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -132,7 +128,7 @@ class _TimerCircleViewState extends State<TimerCircleView>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                _timerString(widget.timerState.remaining),
+                formatTimerString(widget.timerState.remaining),
                 style: const TextStyle(
                   fontSize: 72.0,
                   color: textColor,
