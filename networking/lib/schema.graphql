@@ -7163,7 +7163,6 @@ input UserWhereInput {
 }
 
 """References User record uniquely"""
-
 input UserWhereUniqueInput {
   id: ID
 }

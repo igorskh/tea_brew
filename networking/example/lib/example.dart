@@ -1,8 +1,8 @@
-import 'package:tea_brew_networking/schema.graphql.dart';
 import 'package:tea_brew_networking/queries.graphql.dart';
+import 'package:tea_brew_networking/schema.graphql.dart';
 import 'package:graphql/client.dart';
 
-void main(List<String> arguments) async {
+void example() async {
   print('Getting tea categories...');
 
   final url =

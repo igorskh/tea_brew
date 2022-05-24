@@ -1,17 +1,14 @@
 {
-  "name": "appolo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "apollo schema:download",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "apollo": "^2.33.11",
-    "get-graphql-schema": "^2.1.2",
-    "graphql": "^16.5.0"
+    "name": "tea_brew_networking",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "start": "get-graphql-schema https://api-eu-central-1.graphcms.com/v2/cl2oy0ffa3z7n01xj3r6p5rk4/master > lib/schema.graphql"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "get-graphql-schema": "^2.1.2"
+    }
   }
-}
+  

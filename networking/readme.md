@@ -16,7 +16,9 @@ npx get-graphql-schema https://api-eu-central-1.graphcms.com/v2/cl2oy0ffa3z7n01x
 
 Generate `dart` files from schema:
 ```bash
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
+# or 
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
 ## Run sample script
