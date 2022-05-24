@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tea_brew/components/nfc_dialog/nfc_dialog_builder.dart';
 
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/router/bloc/router_bloc.dart';
@@ -111,8 +112,24 @@ class DetailsBody extends StatelessWidget {
             if (tea.steepingTime != null)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                child: ElevatedButton(
-                    onPressed: _onBrewClick, child: const Text("Brew")),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _onBrewClick,
+                      child: const Text("Brew"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).restorablePush(nfcDialogBuilder,
+                            arguments: {'teaID': tea.id});
+                      },
+                      child: const Icon(
+                        Icons.nfc,
+                      ),
+                    ),
+                  ],
+                ),
               )
           ],
         ),
