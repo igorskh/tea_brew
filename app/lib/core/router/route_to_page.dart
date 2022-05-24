@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:tea_brew/pages/home.dart';
-import 'package:tea_brew/pages/catalog/detail.dart';
-import 'package:tea_brew/pages/timer/timer.dart';
-import 'package:tea_brew/pages/unknown.dart';
+import 'package:tea_brew/pages/home_page.dart';
+import 'package:tea_brew/pages/catalog/details/details_page.dart';
+import 'package:tea_brew/pages/timer/timer_page.dart';
+import 'package:tea_brew/pages/unknown_page.dart';
 
 import 'router.dart';
 

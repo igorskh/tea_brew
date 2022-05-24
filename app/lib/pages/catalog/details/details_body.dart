@@ -8,40 +8,54 @@ import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/decorations.dart';
 import 'package:tea_brew/styles/text.dart';
 
+import 'details_table_cell.dart';
+import 'timer_confirm_dialog.dart';
+
 class DetailsBody extends StatelessWidget {
   const DetailsBody({Key? key, required this.tea}) : super(key: key);
 
   final Tea tea;
 
-  Widget _buildTableCell(String title, String value) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title.toUpperCase(),
-          style: textSubtitleStyle,
-        ),
-        Text(
-          value,
-          style: textBodyBoldStyle,
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    void _navigateTimer() {
-      BlocProvider.of<TimerBloc>(context).add(
-        TimerConfigure(tea: tea),
-      );
-
+    void _navigateTimer(bool reset) {
+      if (reset) {
+        BlocProvider.of<TimerBloc>(context).add(
+          TimerConfigure(tea: tea),
+        );
+      }
       BlocProvider.of<RouterBloc>(context).add(
         RouterPush(
           route: AppRoute.timer(),
         ),
       );
+    }
+
+    void _showAlertDialog() {
+      AlertDialog alert = TimerConfirmDialog(
+        onConfirm: () {
+          Navigator.pop(context);
+          _navigateTimer(true);
+        },
+        onCancel: () {
+          Navigator.pop(context);
+          _navigateTimer(false);
+        },
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
+    void _onBrewClick() {
+      if (BlocProvider.of<TimerBloc>(context).state is TimerProgressed) {
+        _showAlertDialog();
+      } else {
+        _navigateTimer(true);
+      }
     }
 
     return Container(
@@ -67,24 +81,24 @@ class DetailsBody extends StatelessWidget {
                 crossAxisCount: 2,
                 children: [
                   if (tea.category != null)
-                    _buildTableCell(
-                      "Type",
-                      tea.category!.title,
+                    DetailsTableCell(
+                      title: "Type",
+                      text: tea.category!.title,
                     ),
                   if (tea.origin != null)
-                    _buildTableCell(
-                      "Origin",
-                      tea.origin!,
+                    DetailsTableCell(
+                      title: "Origin",
+                      text: tea.origin!,
                     ),
                   if (tea.steepingTime != null)
-                    _buildTableCell(
-                      "Steeping time",
-                      "${tea.steepingTime} s",
+                    DetailsTableCell(
+                      title: "Steeping time",
+                      text: "${tea.steepingTime} s",
                     ),
                   if (tea.steepingTemperature != null)
-                    _buildTableCell(
-                      "Temperature",
-                      "${tea.steepingTemperature} °C",
+                    DetailsTableCell(
+                      title: "Temperature",
+                      text: "${tea.steepingTemperature} °C",
                     ),
                 ],
               ),
@@ -98,7 +112,7 @@ class DetailsBody extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: ElevatedButton(
-                    onPressed: _navigateTimer, child: const Text("Brew")),
+                    onPressed: _onBrewClick, child: const Text("Brew")),
               )
           ],
         ),
