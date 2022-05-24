@@ -12,11 +12,9 @@ class TimerTeaInformationView extends StatelessWidget {
   const TimerTeaInformationView({
     Key? key,
     required this.timerState,
-    required this.tea,
   }) : super(key: key);
 
   final TimerState timerState;
-  final Tea tea;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class TimerTeaInformationView extends StatelessWidget {
         );
       } else {
         BlocProvider.of<TimerBloc>(context).add(
-          TimerStart(duration: tea.steepingTime!),
+          TimerStart(duration: timerState.tea!.steepingTime!),
         );
       }
     }
@@ -44,13 +42,17 @@ class TimerTeaInformationView extends StatelessWidget {
       );
     }
 
+    if (timerState.tea == null) {
+      return const Text("Tea not found");
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Text(
-            tea.title.toUpperCase(),
+            timerState.tea!.title.toUpperCase(),
             style: const TextStyle(
               fontSize: 24.0,
               color: textColor,
@@ -60,17 +62,18 @@ class TimerTeaInformationView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (tea.steepingAmount != null)
+              if (timerState.tea!.steepingAmount != null)
                 TeaInformationIcon(
-                    iconData: Icons.scale, text: tea.steepingAmount!),
-              if (tea.steepingTemperature != null)
+                    iconData: Icons.scale,
+                    text: timerState.tea!.steepingAmount!),
+              if (timerState.tea!.steepingTemperature != null)
                 TeaInformationIcon(
                     iconData: Icons.whatshot,
-                    text: "${tea.steepingTemperature!} °C"),
-              if (tea.amountOfWater != null)
+                    text: "${timerState.tea!.steepingTemperature!} °C"),
+              if (timerState.tea!.amountOfWater != null)
                 TeaInformationIcon(
                     iconData: Icons.water_drop,
-                    text: "${tea.amountOfWater!} ml"),
+                    text: "${timerState.tea!.amountOfWater!} ml"),
             ],
           ),
           Row(

@@ -17,9 +17,7 @@ class TimerPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          return CountDownTimer(
-            tea: state.tea!,
-          );
+          return CountDownTimer();
         }),
       ),
     );

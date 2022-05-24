@@ -89,7 +89,6 @@ class _TimerCircleViewState extends State<TimerCircleView>
           return;
       }
     });
-    // _animationController.
   }
 
   @override
