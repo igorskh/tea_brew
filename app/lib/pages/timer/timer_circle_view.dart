@@ -40,17 +40,17 @@ class _TimerCircleViewState extends State<TimerCircleView>
       duration: const Duration(milliseconds: 500),
     );
 
-    TimerState state = BlocProvider.of<TimerBloc>(context).state;
     setState(() {
       Future.delayed(const Duration(milliseconds: 1), () {
-        _animationController.duration = Duration(seconds: state.duration);
-        if (state is TimerProgressed) {
+        _animationController.duration =
+            Duration(seconds: widget.timerState.duration);
+        if (widget.timerState is TimerProgressed) {
           _animationController.reverse(
-            from: state.remaining / state.duration,
+            from: widget.timerState.remaining / widget.timerState.duration,
           );
-        } else if (state is TimerPaused) {
+        } else if (widget.timerState is TimerPaused) {
           _animationController.animateTo(
-            state.remaining / state.duration,
+            widget.timerState.remaining / widget.timerState.duration,
             duration: _fastTransitDuration,
           );
         } else {
