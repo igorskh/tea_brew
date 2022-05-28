@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
+import 'package:tea_brew/styles/colors.dart';
 
 import 'category_filter_items.dart';
 
@@ -28,13 +29,16 @@ class CategoryFilter extends SliverPersistentHeaderDelegate {
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const CircularProgressIndicator();
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: CategoryFilterItems(
-              categories: snapshot.requireData,
-              categoryID: currentCategoryID,
+        return Container(
+          color: backgroundColor,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CategoryFilterItems(
+                categories: snapshot.requireData,
+                categoryID: currentCategoryID,
+              ),
             ),
           ),
         );
@@ -50,5 +54,5 @@ class CategoryFilter extends SliverPersistentHeaderDelegate {
   @override
   double maxExtent = 60;
   @override
-  double minExtent = 10;
+  double minExtent = 60;
 }

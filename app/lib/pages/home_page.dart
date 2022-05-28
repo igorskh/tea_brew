@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tea_brew/core/router/bloc/router_bloc.dart';
 import 'package:tea_brew/core/router/router.dart';
 import 'package:tea_brew/core/timer/bloc/timer_bloc.dart';
+import 'package:tea_brew/styles/colors.dart';
 
 import 'catalog/catalog_grid.dart';
 
@@ -18,25 +19,34 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: const CatalogGrid(),
-      floatingActionButton:
-          BlocBuilder<TimerBloc, TimerState>(builder: (context, state) {
-        return Stack(
-          children: [
-            if (state is! TimerStopped)
-              FloatingActionButton(
-                onPressed: () => {
-                  BlocProvider.of<RouterBloc>(context).add(
-                    RouterPush(
-                      route: AppRoute.timer(),
+      body: Container(
+        color: Theme.of(context).colorScheme.primary,
+        child: SafeArea(
+          child: Container(
+            color: backgroundColor,
+            child: const CatalogGrid(),
+          ),
+        ),
+      ),
+      floatingActionButton: BlocBuilder<TimerBloc, TimerState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              if (state is! TimerStopped)
+                FloatingActionButton(
+                  onPressed: () => {
+                    BlocProvider.of<RouterBloc>(context).add(
+                      RouterPush(
+                        route: AppRoute.timer(),
+                      ),
                     ),
-                  ),
-                },
-                child: const Icon(Icons.timer),
-              ),
-          ],
-        );
-      }),
+                  },
+                  child: const Icon(Icons.timer),
+                ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

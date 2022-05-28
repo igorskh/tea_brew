@@ -22,7 +22,7 @@ class CatalogGridItems extends StatelessWidget {
     }
 
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       sliver: FutureBuilder<List<Tea>>(
         future: _getTeas(),
         builder: (context, snapshot) {
