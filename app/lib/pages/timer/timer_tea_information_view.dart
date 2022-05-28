@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tea_brew/core/models/tea.dart';
 
 import 'package:tea_brew/core/timer/timer.dart';
 import 'package:tea_brew/styles/buttons.dart';

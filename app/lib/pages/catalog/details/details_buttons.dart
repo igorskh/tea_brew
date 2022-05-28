@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tea_brew/components/nfc_dialog/nfc_dialog_builder.dart';
 
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/router/bloc/router_bloc.dart';
