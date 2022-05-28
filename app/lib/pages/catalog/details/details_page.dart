@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tea_brew/core/models/models.dart';
 
 import 'details_body.dart';
-import 'details_header.dart';
+import 'header/details_header.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({Key? key, required this.tea}) : super(key: key);
@@ -11,18 +11,22 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Flex(
-          direction: MediaQuery.of(context).orientation == Orientation.portrait
-              ? Axis.vertical
-              : Axis.horizontal,
+          direction: isPortrait ? Axis.vertical : Axis.horizontal,
           children: [
             Hero(
               tag: "header-${tea.id}",
               child: Material(
-                child: DetailsHeader(tea: tea),
+                child: SizedBox(
+                  width: isPortrait ? double.infinity : 300,
+                  height: isPortrait ? null : double.infinity,
+                  child: DetailsHeader(tea: tea),
+                ),
               ),
             ),
             Expanded(

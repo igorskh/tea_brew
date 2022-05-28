@@ -55,8 +55,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
             tz.TZDateTime.now(tz.local).add(Duration(seconds: duration)),
             const NotificationDetails(
               android: AndroidNotificationDetails(
-                  'notification channel id', 'notification channel name',
-                  channelDescription: 'notification description'),
+                'notification channel id',
+                'notification channel name',
+                channelDescription: 'notification description',
+              ),
             ),
             androidAllowWhileIdle: true,
             uiLocalNotificationDateInterpretation:

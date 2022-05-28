@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tea_brew/components/card_view.dart';
+
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
-import 'package:tea_brew/core/router/bloc/router_bloc.dart';
-import 'package:tea_brew/core/router/router.dart';
+
+import 'catalog_grid_item.dart';
 
 class CatalogGridItems extends StatelessWidget {
   const CatalogGridItems({
@@ -16,12 +16,6 @@ class CatalogGridItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _navigateDetail(Tea tea) {
-      BlocProvider.of<RouterBloc>(context).add(
-        RouterPush(route: AppRoute.detail(tea: tea)),
-      );
-    }
-
     Future<List<Tea>> _getTeas() async {
       return await RepositoryProvider.of<AbstractTeaRepository>(context)
           .fetchTeas(categoryID);
@@ -43,19 +37,7 @@ class CatalogGridItems extends StatelessWidget {
             return SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (ctx, i) {
-                  var tea = snapshot.requireData[i];
-                  return GestureDetector(
-                    onTap: () {
-                      _navigateDetail(tea);
-                    },
-                    child: Hero(
-                      tag: "header-${tea.id}",
-                      child: Material(
-                          child: CardView(
-                        tea: tea,
-                      )),
-                    ),
-                  );
+                  return CatalogGridItem(tea: snapshot.requireData[i]);
                 },
                 childCount: snapshot.requireData.length,
               ),
@@ -69,13 +51,12 @@ class CatalogGridItems extends StatelessWidget {
                         : 4,
               ),
             );
-          } else {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
           }
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         },
       ),
     );
