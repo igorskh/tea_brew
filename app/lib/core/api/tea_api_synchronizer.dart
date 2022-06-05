@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:tea_brew/core/api/tea_api_connector.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
@@ -13,9 +11,6 @@ enum TeaAPISynchronizerStatus {
 class TeaAPISynchronizer {
   final TeaAPIConnector _apiConnector;
   final AbstractTeaRepository _repository;
-
-  Isolate? isolate;
-  ReceivePort isolateReceivePort = ReceivePort();
 
   TeaAPISynchronizer(this._apiConnector, this._repository);
 
