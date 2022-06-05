@@ -4,6 +4,29 @@ query FetchCategories($locales: [Locale!]! = [en]) {
   }
 }
 
+query FetchTeas($locales: [Locale!]! = [en]) {
+  teas: teas(locales: $locales) {
+    ...TeaSummary
+  }
+}
+fragment TeaSummary on Tea {
+  locale
+  createdAt
+  id
+  name
+  steepingTime
+  steepingCount
+  steepingTemperature
+  steepingAmount
+  images {
+    id
+    url(transformation: {image: {resize: {height: 200, width: 200}}})
+  }
+  teaCategories {
+    id
+  }
+}
+
 fragment TeaCategorySummary on TeaCategory {
   locale
   createdAt

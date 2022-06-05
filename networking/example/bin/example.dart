@@ -1,5 +1,7 @@
 import 'package:example/example.dart' as example;
 
 void main(List<String> arguments) {
-  example.example();
+  final client = example.getClient();
+  example.getCategories(client);
+  example.getTeas(client);
 }
