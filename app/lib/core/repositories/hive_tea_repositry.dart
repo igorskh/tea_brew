@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 import 'package:tea_brew/core/models/tea_category.dart';
 import 'package:tea_brew/core/models/tea.dart';
+import 'package:tea_brew/core/repositories/errors.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
 class HiveTeaRepository implements AbstractTeaRepository {
@@ -42,7 +43,12 @@ class HiveTeaRepository implements AbstractTeaRepository {
   Future<Tea> createTea(Tea tea) async {
     try {
       teaBox.values.firstWhere((element) => tea.id == element.id);
-      return Future.error('Tea already exists');
+      return Future.error(
+        TeaRepositoryError(
+          9,
+          "Tea already exists",
+        ),
+      );
     } on StateError {
       tea.category = null;
       await teaBox.add(tea);
@@ -54,7 +60,12 @@ class HiveTeaRepository implements AbstractTeaRepository {
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) async {
     try {
       categoryBox.values.firstWhere((element) => teaCategory.id == element.id);
-      return Future.error('Tea already exists');
+      return Future.error(
+        TeaRepositoryError(
+          9,
+          "Tea category already exists",
+        ),
+      );
     } on StateError {
       await categoryBox.add(teaCategory);
       return teaCategory;

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tea_brew/core/api/tea_api_connector.dart';
 import 'package:tea_brew/core/catalog/bloc/catalog_bloc.dart';
 
 import 'package:tea_brew/core/repositories/tea_repository.dart';
@@ -17,6 +18,7 @@ class TeaApp extends StatelessWidget {
   TeaApp({
     Key? key,
     required this.teaRepository,
+    this.teaAPIConnector,
   }) : super(key: key) {
     _localNotificationsPlugin = setupLocalNotifications();
     _routerBloc = RouterBloc();
@@ -25,11 +27,20 @@ class TeaApp extends StatelessWidget {
   late final FlutterLocalNotificationsPlugin _localNotificationsPlugin;
   late final RouterBloc _routerBloc;
   final AbstractTeaRepository teaRepository;
+  final TeaAPIConnector? teaAPIConnector;
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AbstractTeaRepository>(
-      create: (_) => teaRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AbstractTeaRepository>(
+          create: (_) => teaRepository,
+        ),
+        if (teaAPIConnector != null)
+          RepositoryProvider<TeaAPIConnector>(
+            create: (_) => teaAPIConnector!,
+          ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<RouterBloc>(create: (_) => _routerBloc),

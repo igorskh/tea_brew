@@ -23,7 +23,19 @@
             "type": "dart",
             "program": "lib/main_hive.dart",
             "args": [
+                "--dart-define=HIVE_CLEAN_DATA=yes",
                 "--dart-define=HIVE_MOCK_DATA=yes"
+            ],
+            "flutterMode": "debug"
+        },
+        {
+            "name": "app (hive) no data",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_hive.dart",
+            "args": [
+                "--dart-define=HIVE_CLEAN_DATA=yes",
+                "--dart-define=NO_API=yes"
             ],
             "flutterMode": "debug"
         },

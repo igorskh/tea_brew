@@ -39,15 +39,27 @@ dependencies:
 
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+
   flutter_svg: ^1.0.3
+  
   json_annotation: ^4.5.0
   meta: ^1.7.0
+
   hive: ^2.2.1
   hive_flutter: ^1.1.0
+
+  # Local Notifications
   flutter_local_notifications: ^9.5.3+1
   timezone: ^0.8.0
   flutter_native_timezone: ^2.0.0
+  
+  # NFC reader
   nfc_manager: ^3.1.1
+
+  # Networking
+  graphql: ^5.1.1
+  tea_brew_networking:
+    path: ../networking
 
 dev_dependencies:
   flutter_test:

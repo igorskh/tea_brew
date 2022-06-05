@@ -29,3 +29,8 @@ The following argument removes all Hive data:
 ```bash
 flutter run ./lib/main_hive.dart --dart-define=HIVE_CLEAN_DATA=yes
 ```
+
+The following argument disables API:
+```bash
+flutter run ./lib/main_hive.dart --dart-define=NO_API=yes
+```

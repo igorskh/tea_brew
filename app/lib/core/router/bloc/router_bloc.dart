@@ -10,14 +10,17 @@ part 'router_state.dart';
 class RouterBloc extends Bloc<RouterEvent, RouterState> {
   RouterBloc()
       : super(
-    RouterState(pages: [
-      routeToPage(AppRoute.home()),
-    ]),
-  ) {
+          RouterState(pages: [
+            routeToPage(AppRoute.home()),
+          ]),
+        ) {
     on<RouterPop>((event, emit) => emit(_routerPopToState(event.page, state)));
-    on<RouterPush>((event, emit) => emit(_routerPushToState(event.route, state)));
-    on<RouterReplace>((event, emit) => emit(_routerReplaceToState(event.route, state)));
-    on<RouterNewPath>((event, emit) => emit(_routerPushToState(event.route, state)));
+    on<RouterPush>(
+        (event, emit) => emit(_routerPushToState(event.route, state)));
+    on<RouterReplace>(
+        (event, emit) => emit(_routerReplaceToState(event.route, state)));
+    on<RouterNewPath>(
+        (event, emit) => emit(_routerPushToState(event.route, state)));
   }
 
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -26,8 +29,7 @@ class RouterBloc extends Bloc<RouterEvent, RouterState> {
     return parseRoute(Uri.parse(state.pages.last.name!));
   }
 
-  RouterState _routerReplaceToState(
-      AppRoute route, RouterState state) {
+  RouterState _routerReplaceToState(AppRoute route, RouterState state) {
     var newPage = routeToPage(route);
 
     if (newPage.key == state.pages.last.key) {
@@ -47,8 +49,7 @@ class RouterBloc extends Bloc<RouterEvent, RouterState> {
     );
   }
 
-  RouterState _routerPushToState(
-      AppRoute route, RouterState state) {
+  RouterState _routerPushToState(AppRoute route, RouterState state) {
     var newPage = routeToPage(route);
     if (state.pages.any((element) => element.key == newPage.key)) {
       return state;

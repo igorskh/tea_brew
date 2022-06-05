@@ -2,6 +2,7 @@ import 'package:tea_brew/core/models/tea.dart';
 import 'package:tea_brew/core/models/tea_category.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
+import 'errors.dart';
 import 'mock_data.dart';
 
 class SyncTeaRepository implements AbstractTeaRepository {
@@ -25,7 +26,12 @@ class SyncTeaRepository implements AbstractTeaRepository {
   @override
   Future<Tea> createTea(Tea tea) {
     if (teaBox.indexWhere((element) => tea.id == element.id) > -1) {
-      return Future.error('Tea already exists');
+      return Future.error(
+        TeaRepositoryError(
+          9,
+          "Tea already exists",
+        ),
+      );
     }
 
     teaBox.add(tea);
@@ -36,7 +42,12 @@ class SyncTeaRepository implements AbstractTeaRepository {
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) {
     if (teaCategoryBox.indexWhere((element) => teaCategory.id == element.id) >
         -1) {
-      return Future.error('Tea category already exists');
+      return Future.error(
+        TeaRepositoryError(
+          9,
+          "Tea category already exists",
+        ),
+      );
     }
 
     teaCategoryBox.add(teaCategory);

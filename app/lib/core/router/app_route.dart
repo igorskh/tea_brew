@@ -4,7 +4,7 @@ class AppRoute {
   static String pagePrefix(AppPages page) {
     switch (page) {
       case AppPages.home:
-        return '';
+        return 'home';
       case AppPages.unknown:
         return '404';
       case AppPages.detail:
@@ -13,6 +13,8 @@ class AppRoute {
         return 'settings';
       case AppPages.timer:
         return 'timer';
+      case AppPages.synchronizer:
+        return 'synchronizer';
     }
   }
 
@@ -40,17 +42,17 @@ class AppRoute {
         return 'Settings';
       case AppPages.timer:
         return 'Timer';
+      case AppPages.synchronizer:
+        return 'Synchronizer';
     }
   }
 
   AppRoute.home() : page = AppPages.home;
-
   AppRoute.settings() : page = AppPages.settings;
-
   AppRoute.detail({required this.tea}) : page = AppPages.detail;
   AppRoute.timer() : page = AppPages.timer;
-
   AppRoute.unknown() : page = AppPages.unknown;
+  AppRoute.synchronizer() : page = AppPages.synchronizer;
 
   bool isPage(AppPages reqPage) => reqPage == page;
 }
