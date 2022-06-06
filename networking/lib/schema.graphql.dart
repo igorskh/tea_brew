@@ -12438,6 +12438,7 @@ class Input$TeaCreateInput {
       this.steepingTime,
       this.steepingCount,
       this.steepingAmount,
+      this.amountOfWater,
       this.teaCategories,
       this.origin,
       this.images,
@@ -12463,6 +12464,8 @@ class Input$TeaCreateInput {
 
   final String? steepingAmount;
 
+  final int? amountOfWater;
+
   final Input$TeaCategoryCreateManyInlineInput? teaCategories;
 
   final Input$OriginCreateOneInlineInput? origin;
@@ -12481,6 +12484,7 @@ class Input$TeaCreateInput {
     final l$steepingTime = steepingTime;
     final l$steepingCount = steepingCount;
     final l$steepingAmount = steepingAmount;
+    final l$amountOfWater = amountOfWater;
     final l$teaCategories = teaCategories;
     final l$origin = origin;
     final l$images = images;
@@ -12494,6 +12498,7 @@ class Input$TeaCreateInput {
       l$steepingTime,
       l$steepingCount,
       l$steepingAmount,
+      l$amountOfWater,
       l$teaCategories,
       l$origin,
       l$images,
@@ -12530,6 +12535,9 @@ class Input$TeaCreateInput {
     final l$steepingAmount = steepingAmount;
     final lOther$steepingAmount = other.steepingAmount;
     if (l$steepingAmount != lOther$steepingAmount) return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
     final l$teaCategories = teaCategories;
     final lOther$teaCategories = other.teaCategories;
     if (l$teaCategories != lOther$teaCategories) return false;
@@ -12839,6 +12847,14 @@ class Input$TeaManyWhereInput {
       this.steepingAmount_not_starts_with,
       this.steepingAmount_ends_with,
       this.steepingAmount_not_ends_with,
+      this.amountOfWater,
+      this.amountOfWater_not,
+      this.amountOfWater_in,
+      this.amountOfWater_not_in,
+      this.amountOfWater_lt,
+      this.amountOfWater_lte,
+      this.amountOfWater_gt,
+      this.amountOfWater_gte,
       this.publishedBy,
       this.updatedBy,
       this.createdBy,
@@ -13002,6 +13018,22 @@ class Input$TeaManyWhereInput {
 
   final String? steepingAmount_not_ends_with;
 
+  final int? amountOfWater;
+
+  final int? amountOfWater_not;
+
+  final List<int>? amountOfWater_in;
+
+  final List<int>? amountOfWater_not_in;
+
+  final int? amountOfWater_lt;
+
+  final int? amountOfWater_lte;
+
+  final int? amountOfWater_gt;
+
+  final int? amountOfWater_gte;
+
   final Input$UserWhereInput? publishedBy;
 
   final Input$UserWhereInput? updatedBy;
@@ -13102,6 +13134,14 @@ class Input$TeaManyWhereInput {
     final l$steepingAmount_not_starts_with = steepingAmount_not_starts_with;
     final l$steepingAmount_ends_with = steepingAmount_ends_with;
     final l$steepingAmount_not_ends_with = steepingAmount_not_ends_with;
+    final l$amountOfWater = amountOfWater;
+    final l$amountOfWater_not = amountOfWater_not;
+    final l$amountOfWater_in = amountOfWater_in;
+    final l$amountOfWater_not_in = amountOfWater_not_in;
+    final l$amountOfWater_lt = amountOfWater_lt;
+    final l$amountOfWater_lte = amountOfWater_lte;
+    final l$amountOfWater_gt = amountOfWater_gt;
+    final l$amountOfWater_gte = amountOfWater_gte;
     final l$publishedBy = publishedBy;
     final l$updatedBy = updatedBy;
     final l$createdBy = createdBy;
@@ -13216,6 +13256,18 @@ class Input$TeaManyWhereInput {
       l$steepingAmount_not_starts_with,
       l$steepingAmount_ends_with,
       l$steepingAmount_not_ends_with,
+      l$amountOfWater,
+      l$amountOfWater_not,
+      l$amountOfWater_in == null
+          ? null
+          : Object.hashAll(l$amountOfWater_in.map((v) => v)),
+      l$amountOfWater_not_in == null
+          ? null
+          : Object.hashAll(l$amountOfWater_not_in.map((v) => v)),
+      l$amountOfWater_lt,
+      l$amountOfWater_lte,
+      l$amountOfWater_gt,
+      l$amountOfWater_gte,
       l$publishedBy,
       l$updatedBy,
       l$createdBy,
@@ -13686,6 +13738,55 @@ class Input$TeaManyWhereInput {
         other.steepingAmount_not_ends_with;
     if (l$steepingAmount_not_ends_with != lOther$steepingAmount_not_ends_with)
       return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
+    final l$amountOfWater_not = amountOfWater_not;
+    final lOther$amountOfWater_not = other.amountOfWater_not;
+    if (l$amountOfWater_not != lOther$amountOfWater_not) return false;
+    final l$amountOfWater_in = amountOfWater_in;
+    final lOther$amountOfWater_in = other.amountOfWater_in;
+    if (l$amountOfWater_in != null && lOther$amountOfWater_in != null) {
+      if (l$amountOfWater_in.length != lOther$amountOfWater_in.length)
+        return false;
+      for (int i = 0; i < l$amountOfWater_in.length; i++) {
+        final l$amountOfWater_in$entry = l$amountOfWater_in[i];
+        final lOther$amountOfWater_in$entry = lOther$amountOfWater_in[i];
+        if (l$amountOfWater_in$entry != lOther$amountOfWater_in$entry)
+          return false;
+      }
+    } else if (l$amountOfWater_in != lOther$amountOfWater_in) {
+      return false;
+    }
+
+    final l$amountOfWater_not_in = amountOfWater_not_in;
+    final lOther$amountOfWater_not_in = other.amountOfWater_not_in;
+    if (l$amountOfWater_not_in != null && lOther$amountOfWater_not_in != null) {
+      if (l$amountOfWater_not_in.length != lOther$amountOfWater_not_in.length)
+        return false;
+      for (int i = 0; i < l$amountOfWater_not_in.length; i++) {
+        final l$amountOfWater_not_in$entry = l$amountOfWater_not_in[i];
+        final lOther$amountOfWater_not_in$entry =
+            lOther$amountOfWater_not_in[i];
+        if (l$amountOfWater_not_in$entry != lOther$amountOfWater_not_in$entry)
+          return false;
+      }
+    } else if (l$amountOfWater_not_in != lOther$amountOfWater_not_in) {
+      return false;
+    }
+
+    final l$amountOfWater_lt = amountOfWater_lt;
+    final lOther$amountOfWater_lt = other.amountOfWater_lt;
+    if (l$amountOfWater_lt != lOther$amountOfWater_lt) return false;
+    final l$amountOfWater_lte = amountOfWater_lte;
+    final lOther$amountOfWater_lte = other.amountOfWater_lte;
+    if (l$amountOfWater_lte != lOther$amountOfWater_lte) return false;
+    final l$amountOfWater_gt = amountOfWater_gt;
+    final lOther$amountOfWater_gt = other.amountOfWater_gt;
+    if (l$amountOfWater_gt != lOther$amountOfWater_gt) return false;
+    final l$amountOfWater_gte = amountOfWater_gte;
+    final lOther$amountOfWater_gte = other.amountOfWater_gte;
+    if (l$amountOfWater_gte != lOther$amountOfWater_gte) return false;
     final l$publishedBy = publishedBy;
     final lOther$publishedBy = other.publishedBy;
     if (l$publishedBy != lOther$publishedBy) return false;
@@ -13738,6 +13839,7 @@ class Input$TeaUpdateInput {
       this.steepingTime,
       this.steepingCount,
       this.steepingAmount,
+      this.amountOfWater,
       this.teaCategories,
       this.origin,
       this.images,
@@ -13759,6 +13861,8 @@ class Input$TeaUpdateInput {
 
   final String? steepingAmount;
 
+  final int? amountOfWater;
+
   final Input$TeaCategoryUpdateManyInlineInput? teaCategories;
 
   final Input$OriginUpdateOneInlineInput? origin;
@@ -13775,6 +13879,7 @@ class Input$TeaUpdateInput {
     final l$steepingTime = steepingTime;
     final l$steepingCount = steepingCount;
     final l$steepingAmount = steepingAmount;
+    final l$amountOfWater = amountOfWater;
     final l$teaCategories = teaCategories;
     final l$origin = origin;
     final l$images = images;
@@ -13786,6 +13891,7 @@ class Input$TeaUpdateInput {
       l$steepingTime,
       l$steepingCount,
       l$steepingAmount,
+      l$amountOfWater,
       l$teaCategories,
       l$origin,
       l$images,
@@ -13816,6 +13922,9 @@ class Input$TeaUpdateInput {
     final l$steepingAmount = steepingAmount;
     final lOther$steepingAmount = other.steepingAmount;
     if (l$steepingAmount != lOther$steepingAmount) return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
     final l$teaCategories = teaCategories;
     final lOther$teaCategories = other.teaCategories;
     if (l$teaCategories != lOther$teaCategories) return false;
@@ -14159,6 +14268,7 @@ class Input$TeaUpdateManyInput {
       this.steepingTime,
       this.steepingCount,
       this.steepingAmount,
+      this.amountOfWater,
       this.localizations});
 
   @override
@@ -14177,6 +14287,8 @@ class Input$TeaUpdateManyInput {
 
   final String? steepingAmount;
 
+  final int? amountOfWater;
+
   final Input$TeaUpdateManyLocalizationsInput? localizations;
 
   Map<String, dynamic> toJson() => _$Input$TeaUpdateManyInputToJson(this);
@@ -14187,6 +14299,7 @@ class Input$TeaUpdateManyInput {
     final l$steepingTime = steepingTime;
     final l$steepingCount = steepingCount;
     final l$steepingAmount = steepingAmount;
+    final l$amountOfWater = amountOfWater;
     final l$localizations = localizations;
     return Object.hashAll([
       l$name,
@@ -14195,6 +14308,7 @@ class Input$TeaUpdateManyInput {
       l$steepingTime,
       l$steepingCount,
       l$steepingAmount,
+      l$amountOfWater,
       l$localizations
     ]);
   }
@@ -14222,6 +14336,9 @@ class Input$TeaUpdateManyInput {
     final l$steepingAmount = steepingAmount;
     final lOther$steepingAmount = other.steepingAmount;
     if (l$steepingAmount != lOther$steepingAmount) return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
     final l$localizations = localizations;
     final lOther$localizations = other.localizations;
     if (l$localizations != lOther$localizations) return false;
@@ -14693,6 +14810,14 @@ class Input$TeaWhereInput {
       this.steepingAmount_not_starts_with,
       this.steepingAmount_ends_with,
       this.steepingAmount_not_ends_with,
+      this.amountOfWater,
+      this.amountOfWater_not,
+      this.amountOfWater_in,
+      this.amountOfWater_not_in,
+      this.amountOfWater_lt,
+      this.amountOfWater_lte,
+      this.amountOfWater_gt,
+      this.amountOfWater_gte,
       this.publishedBy,
       this.updatedBy,
       this.createdBy,
@@ -14896,6 +15021,22 @@ class Input$TeaWhereInput {
 
   final String? steepingAmount_not_ends_with;
 
+  final int? amountOfWater;
+
+  final int? amountOfWater_not;
+
+  final List<int>? amountOfWater_in;
+
+  final List<int>? amountOfWater_not_in;
+
+  final int? amountOfWater_lt;
+
+  final int? amountOfWater_lte;
+
+  final int? amountOfWater_gt;
+
+  final int? amountOfWater_gte;
+
   final Input$UserWhereInput? publishedBy;
 
   final Input$UserWhereInput? updatedBy;
@@ -15016,6 +15157,14 @@ class Input$TeaWhereInput {
     final l$steepingAmount_not_starts_with = steepingAmount_not_starts_with;
     final l$steepingAmount_ends_with = steepingAmount_ends_with;
     final l$steepingAmount_not_ends_with = steepingAmount_not_ends_with;
+    final l$amountOfWater = amountOfWater;
+    final l$amountOfWater_not = amountOfWater_not;
+    final l$amountOfWater_in = amountOfWater_in;
+    final l$amountOfWater_not_in = amountOfWater_not_in;
+    final l$amountOfWater_lt = amountOfWater_lt;
+    final l$amountOfWater_lte = amountOfWater_lte;
+    final l$amountOfWater_gt = amountOfWater_gt;
+    final l$amountOfWater_gte = amountOfWater_gte;
     final l$publishedBy = publishedBy;
     final l$updatedBy = updatedBy;
     final l$createdBy = createdBy;
@@ -15156,6 +15305,18 @@ class Input$TeaWhereInput {
       l$steepingAmount_not_starts_with,
       l$steepingAmount_ends_with,
       l$steepingAmount_not_ends_with,
+      l$amountOfWater,
+      l$amountOfWater_not,
+      l$amountOfWater_in == null
+          ? null
+          : Object.hashAll(l$amountOfWater_in.map((v) => v)),
+      l$amountOfWater_not_in == null
+          ? null
+          : Object.hashAll(l$amountOfWater_not_in.map((v) => v)),
+      l$amountOfWater_lt,
+      l$amountOfWater_lte,
+      l$amountOfWater_gt,
+      l$amountOfWater_gte,
       l$publishedBy,
       l$updatedBy,
       l$createdBy,
@@ -15733,6 +15894,55 @@ class Input$TeaWhereInput {
         other.steepingAmount_not_ends_with;
     if (l$steepingAmount_not_ends_with != lOther$steepingAmount_not_ends_with)
       return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
+    final l$amountOfWater_not = amountOfWater_not;
+    final lOther$amountOfWater_not = other.amountOfWater_not;
+    if (l$amountOfWater_not != lOther$amountOfWater_not) return false;
+    final l$amountOfWater_in = amountOfWater_in;
+    final lOther$amountOfWater_in = other.amountOfWater_in;
+    if (l$amountOfWater_in != null && lOther$amountOfWater_in != null) {
+      if (l$amountOfWater_in.length != lOther$amountOfWater_in.length)
+        return false;
+      for (int i = 0; i < l$amountOfWater_in.length; i++) {
+        final l$amountOfWater_in$entry = l$amountOfWater_in[i];
+        final lOther$amountOfWater_in$entry = lOther$amountOfWater_in[i];
+        if (l$amountOfWater_in$entry != lOther$amountOfWater_in$entry)
+          return false;
+      }
+    } else if (l$amountOfWater_in != lOther$amountOfWater_in) {
+      return false;
+    }
+
+    final l$amountOfWater_not_in = amountOfWater_not_in;
+    final lOther$amountOfWater_not_in = other.amountOfWater_not_in;
+    if (l$amountOfWater_not_in != null && lOther$amountOfWater_not_in != null) {
+      if (l$amountOfWater_not_in.length != lOther$amountOfWater_not_in.length)
+        return false;
+      for (int i = 0; i < l$amountOfWater_not_in.length; i++) {
+        final l$amountOfWater_not_in$entry = l$amountOfWater_not_in[i];
+        final lOther$amountOfWater_not_in$entry =
+            lOther$amountOfWater_not_in[i];
+        if (l$amountOfWater_not_in$entry != lOther$amountOfWater_not_in$entry)
+          return false;
+      }
+    } else if (l$amountOfWater_not_in != lOther$amountOfWater_not_in) {
+      return false;
+    }
+
+    final l$amountOfWater_lt = amountOfWater_lt;
+    final lOther$amountOfWater_lt = other.amountOfWater_lt;
+    if (l$amountOfWater_lt != lOther$amountOfWater_lt) return false;
+    final l$amountOfWater_lte = amountOfWater_lte;
+    final lOther$amountOfWater_lte = other.amountOfWater_lte;
+    if (l$amountOfWater_lte != lOther$amountOfWater_lte) return false;
+    final l$amountOfWater_gt = amountOfWater_gt;
+    final lOther$amountOfWater_gt = other.amountOfWater_gt;
+    if (l$amountOfWater_gt != lOther$amountOfWater_gt) return false;
+    final l$amountOfWater_gte = amountOfWater_gte;
+    final lOther$amountOfWater_gte = other.amountOfWater_gte;
+    if (l$amountOfWater_gte != lOther$amountOfWater_gte) return false;
     final l$publishedBy = publishedBy;
     final lOther$publishedBy = other.publishedBy;
     if (l$publishedBy != lOther$publishedBy) return false;
@@ -18049,6 +18259,10 @@ enum Enum$TeaOrderByInput {
   steepingAmount_ASC,
   @JsonValue('steepingAmount_DESC')
   steepingAmount_DESC,
+  @JsonValue('amountOfWater_ASC')
+  amountOfWater_ASC,
+  @JsonValue('amountOfWater_DESC')
+  amountOfWater_DESC,
   $unknown
 }
 

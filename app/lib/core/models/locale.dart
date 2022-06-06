@@ -1,0 +1,4 @@
+enum Locale {
+  ru,
+  en,
+}

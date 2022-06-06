@@ -5,16 +5,145 @@ import 'schema.graphql.dart';
 part 'queries.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+class Fragment$OriginSummary {
+  Fragment$OriginSummary(
+      {required this.locale,
+      required this.id,
+      this.title,
+      required this.$__typename});
+
+  @override
+  factory Fragment$OriginSummary.fromJson(Map<String, dynamic> json) =>
+      _$Fragment$OriginSummaryFromJson(json);
+
+  @JsonKey(unknownEnumValue: Enum$Locale.$unknown)
+  final Enum$Locale locale;
+
+  final String id;
+
+  final String? title;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() => _$Fragment$OriginSummaryToJson(this);
+  int get hashCode {
+    final l$locale = locale;
+    final l$id = id;
+    final l$title = title;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$locale, l$id, l$title, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Fragment$OriginSummary) || runtimeType != other.runtimeType)
+      return false;
+    final l$locale = locale;
+    final lOther$locale = other.locale;
+    if (l$locale != lOther$locale) return false;
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) return false;
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) return false;
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$OriginSummary on Fragment$OriginSummary {
+  Fragment$OriginSummary copyWith(
+          {Enum$Locale? locale,
+          String? id,
+          String? Function()? title,
+          String? $__typename}) =>
+      Fragment$OriginSummary(
+          locale: locale == null ? this.locale : locale,
+          id: id == null ? this.id : id,
+          title: title == null ? this.title : title(),
+          $__typename: $__typename == null ? this.$__typename : $__typename);
+}
+
+const fragmentDefinitionOriginSummary = FragmentDefinitionNode(
+    name: NameNode(value: 'OriginSummary'),
+    typeCondition: TypeConditionNode(
+        on: NamedTypeNode(name: NameNode(value: 'Origin'), isNonNull: false)),
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+          name: NameNode(value: 'locale'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      FieldNode(
+          name: NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      FieldNode(
+          name: NameNode(value: 'title'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null)
+    ]));
+const queryDocumentOriginSummary = DocumentNode(definitions: [
+  fragmentDefinitionOriginSummary,
+]);
+
+extension ClientExtension$Fragment$OriginSummary on graphql.GraphQLClient {
+  void writeFragment$OriginSummary(
+          {required Fragment$OriginSummary data,
+          required Map<String, dynamic> idFields,
+          bool broadcast = true}) =>
+      this.writeFragment(
+          graphql.FragmentRequest(
+              idFields: idFields,
+              fragment: const graphql.Fragment(
+                  fragmentName: 'OriginSummary',
+                  document: queryDocumentOriginSummary)),
+          data: data.toJson(),
+          broadcast: broadcast);
+  Fragment$OriginSummary? readFragment$OriginSummary(
+      {required Map<String, dynamic> idFields, bool optimistic = true}) {
+    final result = this.readFragment(
+        graphql.FragmentRequest(
+            idFields: idFields,
+            fragment: const graphql.Fragment(
+                fragmentName: 'OriginSummary',
+                document: queryDocumentOriginSummary)),
+        optimistic: optimistic);
+    return result == null ? null : Fragment$OriginSummary.fromJson(result);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class Fragment$TeaSummary {
   Fragment$TeaSummary(
       {required this.locale,
       required this.createdAt,
       required this.id,
       required this.name,
+      this.description,
       this.steepingTime,
       this.steepingCount,
       this.steepingTemperature,
       this.steepingAmount,
+      this.amountOfWater,
+      this.origin,
       required this.images,
       required this.teaCategories,
       required this.$__typename});
@@ -32,6 +161,8 @@ class Fragment$TeaSummary {
 
   final String name;
 
+  final String? description;
+
   final int? steepingTime;
 
   final int? steepingCount;
@@ -39,6 +170,10 @@ class Fragment$TeaSummary {
   final int? steepingTemperature;
 
   final String? steepingAmount;
+
+  final int? amountOfWater;
+
+  final Fragment$TeaSummary$origin? origin;
 
   final List<Fragment$TeaSummary$images> images;
 
@@ -53,10 +188,13 @@ class Fragment$TeaSummary {
     final l$createdAt = createdAt;
     final l$id = id;
     final l$name = name;
+    final l$description = description;
     final l$steepingTime = steepingTime;
     final l$steepingCount = steepingCount;
     final l$steepingTemperature = steepingTemperature;
     final l$steepingAmount = steepingAmount;
+    final l$amountOfWater = amountOfWater;
+    final l$origin = origin;
     final l$images = images;
     final l$teaCategories = teaCategories;
     final l$$__typename = $__typename;
@@ -65,10 +203,13 @@ class Fragment$TeaSummary {
       l$createdAt,
       l$id,
       l$name,
+      l$description,
       l$steepingTime,
       l$steepingCount,
       l$steepingTemperature,
       l$steepingAmount,
+      l$amountOfWater,
+      l$origin,
       Object.hashAll(l$images.map((v) => v)),
       Object.hashAll(l$teaCategories.map((v) => v)),
       l$$__typename
@@ -92,6 +233,9 @@ class Fragment$TeaSummary {
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) return false;
+    final l$description = description;
+    final lOther$description = other.description;
+    if (l$description != lOther$description) return false;
     final l$steepingTime = steepingTime;
     final lOther$steepingTime = other.steepingTime;
     if (l$steepingTime != lOther$steepingTime) return false;
@@ -104,6 +248,12 @@ class Fragment$TeaSummary {
     final l$steepingAmount = steepingAmount;
     final lOther$steepingAmount = other.steepingAmount;
     if (l$steepingAmount != lOther$steepingAmount) return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
+    final l$origin = origin;
+    final lOther$origin = other.origin;
+    if (l$origin != lOther$origin) return false;
     final l$images = images;
     final lOther$images = other.images;
     if (l$images.length != lOther$images.length) return false;
@@ -135,10 +285,13 @@ extension UtilityExtension$Fragment$TeaSummary on Fragment$TeaSummary {
           String? createdAt,
           String? id,
           String? name,
+          String? Function()? description,
           int? Function()? steepingTime,
           int? Function()? steepingCount,
           int? Function()? steepingTemperature,
           String? Function()? steepingAmount,
+          int? Function()? amountOfWater,
+          Fragment$TeaSummary$origin? Function()? origin,
           List<Fragment$TeaSummary$images>? images,
           List<Fragment$TeaSummary$teaCategories>? teaCategories,
           String? $__typename}) =>
@@ -147,6 +300,7 @@ extension UtilityExtension$Fragment$TeaSummary on Fragment$TeaSummary {
           createdAt: createdAt == null ? this.createdAt : createdAt,
           id: id == null ? this.id : id,
           name: name == null ? this.name : name,
+          description: description == null ? this.description : description(),
           steepingTime:
               steepingTime == null ? this.steepingTime : steepingTime(),
           steepingCount:
@@ -156,6 +310,9 @@ extension UtilityExtension$Fragment$TeaSummary on Fragment$TeaSummary {
               : steepingTemperature(),
           steepingAmount:
               steepingAmount == null ? this.steepingAmount : steepingAmount(),
+          amountOfWater:
+              amountOfWater == null ? this.amountOfWater : amountOfWater(),
+          origin: origin == null ? this.origin : origin(),
           images: images == null ? this.images : images,
           teaCategories:
               teaCategories == null ? this.teaCategories : teaCategories,
@@ -193,6 +350,12 @@ const fragmentDefinitionTeaSummary = FragmentDefinitionNode(
           directives: [],
           selectionSet: null),
       FieldNode(
+          name: NameNode(value: 'description'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      FieldNode(
           name: NameNode(value: 'steepingTime'),
           alias: null,
           arguments: [],
@@ -216,6 +379,37 @@ const fragmentDefinitionTeaSummary = FragmentDefinitionNode(
           arguments: [],
           directives: [],
           selectionSet: null),
+      FieldNode(
+          name: NameNode(value: 'amountOfWater'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null),
+      FieldNode(
+          name: NameNode(value: 'origin'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: SelectionSetNode(selections: [
+            FieldNode(
+                name: NameNode(value: 'id'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            FieldNode(
+                name: NameNode(value: 'title'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            FieldNode(
+                name: NameNode(value: '__typename'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null)
+          ])),
       FieldNode(
           name: NameNode(value: 'images'),
           alias: null,
@@ -313,6 +507,58 @@ extension ClientExtension$Fragment$TeaSummary on graphql.GraphQLClient {
         optimistic: optimistic);
     return result == null ? null : Fragment$TeaSummary.fromJson(result);
   }
+}
+
+@JsonSerializable(explicitToJson: true)
+class Fragment$TeaSummary$origin {
+  Fragment$TeaSummary$origin(
+      {required this.id, this.title, required this.$__typename});
+
+  @override
+  factory Fragment$TeaSummary$origin.fromJson(Map<String, dynamic> json) =>
+      _$Fragment$TeaSummary$originFromJson(json);
+
+  final String id;
+
+  final String? title;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() => _$Fragment$TeaSummary$originToJson(this);
+  int get hashCode {
+    final l$id = id;
+    final l$title = title;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$id, l$title, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Fragment$TeaSummary$origin) ||
+        runtimeType != other.runtimeType) return false;
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) return false;
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) return false;
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtension$Fragment$TeaSummary$origin
+    on Fragment$TeaSummary$origin {
+  Fragment$TeaSummary$origin copyWith(
+          {String? id, String? Function()? title, String? $__typename}) =>
+      Fragment$TeaSummary$origin(
+          id: id == null ? this.id : id,
+          title: title == null ? this.title : title(),
+          $__typename: $__typename == null ? this.$__typename : $__typename);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1235,10 +1481,13 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
       required this.createdAt,
       required this.id,
       required this.name,
+      this.description,
       this.steepingTime,
       this.steepingCount,
       this.steepingTemperature,
       this.steepingAmount,
+      this.amountOfWater,
+      this.origin,
       required this.images,
       required this.teaCategories,
       required this.$__typename});
@@ -1256,6 +1505,8 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
 
   final String name;
 
+  final String? description;
+
   final int? steepingTime;
 
   final int? steepingCount;
@@ -1263,6 +1514,10 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
   final int? steepingTemperature;
 
   final String? steepingAmount;
+
+  final int? amountOfWater;
+
+  final Query$FetchTeas$teas$origin? origin;
 
   final List<Query$FetchTeas$teas$images> images;
 
@@ -1277,10 +1532,13 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
     final l$createdAt = createdAt;
     final l$id = id;
     final l$name = name;
+    final l$description = description;
     final l$steepingTime = steepingTime;
     final l$steepingCount = steepingCount;
     final l$steepingTemperature = steepingTemperature;
     final l$steepingAmount = steepingAmount;
+    final l$amountOfWater = amountOfWater;
+    final l$origin = origin;
     final l$images = images;
     final l$teaCategories = teaCategories;
     final l$$__typename = $__typename;
@@ -1289,10 +1547,13 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
       l$createdAt,
       l$id,
       l$name,
+      l$description,
       l$steepingTime,
       l$steepingCount,
       l$steepingTemperature,
       l$steepingAmount,
+      l$amountOfWater,
+      l$origin,
       Object.hashAll(l$images.map((v) => v)),
       Object.hashAll(l$teaCategories.map((v) => v)),
       l$$__typename
@@ -1316,6 +1577,9 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
     final l$name = name;
     final lOther$name = other.name;
     if (l$name != lOther$name) return false;
+    final l$description = description;
+    final lOther$description = other.description;
+    if (l$description != lOther$description) return false;
     final l$steepingTime = steepingTime;
     final lOther$steepingTime = other.steepingTime;
     if (l$steepingTime != lOther$steepingTime) return false;
@@ -1328,6 +1592,12 @@ class Query$FetchTeas$teas implements Fragment$TeaSummary {
     final l$steepingAmount = steepingAmount;
     final lOther$steepingAmount = other.steepingAmount;
     if (l$steepingAmount != lOther$steepingAmount) return false;
+    final l$amountOfWater = amountOfWater;
+    final lOther$amountOfWater = other.amountOfWater;
+    if (l$amountOfWater != lOther$amountOfWater) return false;
+    final l$origin = origin;
+    final lOther$origin = other.origin;
+    if (l$origin != lOther$origin) return false;
     final l$images = images;
     final lOther$images = other.images;
     if (l$images.length != lOther$images.length) return false;
@@ -1359,10 +1629,13 @@ extension UtilityExtension$Query$FetchTeas$teas on Query$FetchTeas$teas {
           String? createdAt,
           String? id,
           String? name,
+          String? Function()? description,
           int? Function()? steepingTime,
           int? Function()? steepingCount,
           int? Function()? steepingTemperature,
           String? Function()? steepingAmount,
+          int? Function()? amountOfWater,
+          Query$FetchTeas$teas$origin? Function()? origin,
           List<Query$FetchTeas$teas$images>? images,
           List<Query$FetchTeas$teas$teaCategories>? teaCategories,
           String? $__typename}) =>
@@ -1371,6 +1644,7 @@ extension UtilityExtension$Query$FetchTeas$teas on Query$FetchTeas$teas {
           createdAt: createdAt == null ? this.createdAt : createdAt,
           id: id == null ? this.id : id,
           name: name == null ? this.name : name,
+          description: description == null ? this.description : description(),
           steepingTime:
               steepingTime == null ? this.steepingTime : steepingTime(),
           steepingCount:
@@ -1380,9 +1654,64 @@ extension UtilityExtension$Query$FetchTeas$teas on Query$FetchTeas$teas {
               : steepingTemperature(),
           steepingAmount:
               steepingAmount == null ? this.steepingAmount : steepingAmount(),
+          amountOfWater:
+              amountOfWater == null ? this.amountOfWater : amountOfWater(),
+          origin: origin == null ? this.origin : origin(),
           images: images == null ? this.images : images,
           teaCategories:
               teaCategories == null ? this.teaCategories : teaCategories,
+          $__typename: $__typename == null ? this.$__typename : $__typename);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Query$FetchTeas$teas$origin implements Fragment$TeaSummary$origin {
+  Query$FetchTeas$teas$origin(
+      {required this.id, this.title, required this.$__typename});
+
+  @override
+  factory Query$FetchTeas$teas$origin.fromJson(Map<String, dynamic> json) =>
+      _$Query$FetchTeas$teas$originFromJson(json);
+
+  final String id;
+
+  final String? title;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() => _$Query$FetchTeas$teas$originToJson(this);
+  int get hashCode {
+    final l$id = id;
+    final l$title = title;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$id, l$title, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Query$FetchTeas$teas$origin) ||
+        runtimeType != other.runtimeType) return false;
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) return false;
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) return false;
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$FetchTeas$teas$origin
+    on Query$FetchTeas$teas$origin {
+  Query$FetchTeas$teas$origin copyWith(
+          {String? id, String? Function()? title, String? $__typename}) =>
+      Query$FetchTeas$teas$origin(
+          id: id == null ? this.id : id,
+          title: title == null ? this.title : title(),
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }
 
@@ -1483,5 +1812,298 @@ extension UtilityExtension$Query$FetchTeas$teas$teaCategories
           {String? id, String? $__typename}) =>
       Query$FetchTeas$teas$teaCategories(
           id: id == null ? this.id : id,
+          $__typename: $__typename == null ? this.$__typename : $__typename);
+}
+
+@JsonSerializable(explicitToJson: true)
+class Variables$Query$FetchOrigins {
+  Variables$Query$FetchOrigins({required this.locales});
+
+  @override
+  factory Variables$Query$FetchOrigins.fromJson(Map<String, dynamic> json) =>
+      _$Variables$Query$FetchOriginsFromJson(json);
+
+  @JsonKey(unknownEnumValue: Enum$Locale.$unknown)
+  final List<Enum$Locale> locales;
+
+  Map<String, dynamic> toJson() => _$Variables$Query$FetchOriginsToJson(this);
+  int get hashCode {
+    final l$locales = locales;
+    return Object.hashAll([Object.hashAll(l$locales.map((v) => v))]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Variables$Query$FetchOrigins) ||
+        runtimeType != other.runtimeType) return false;
+    final l$locales = locales;
+    final lOther$locales = other.locales;
+    if (l$locales.length != lOther$locales.length) return false;
+    for (int i = 0; i < l$locales.length; i++) {
+      final l$locales$entry = l$locales[i];
+      final lOther$locales$entry = lOther$locales[i];
+      if (l$locales$entry != lOther$locales$entry) return false;
+    }
+
+    return true;
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class Query$FetchOrigins {
+  Query$FetchOrigins({required this.origins, required this.$__typename});
+
+  @override
+  factory Query$FetchOrigins.fromJson(Map<String, dynamic> json) =>
+      _$Query$FetchOriginsFromJson(json);
+
+  final List<Query$FetchOrigins$origins> origins;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() => _$Query$FetchOriginsToJson(this);
+  int get hashCode {
+    final l$origins = origins;
+    final l$$__typename = $__typename;
+    return Object.hashAll(
+        [Object.hashAll(l$origins.map((v) => v)), l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Query$FetchOrigins) || runtimeType != other.runtimeType)
+      return false;
+    final l$origins = origins;
+    final lOther$origins = other.origins;
+    if (l$origins.length != lOther$origins.length) return false;
+    for (int i = 0; i < l$origins.length; i++) {
+      final l$origins$entry = l$origins[i];
+      final lOther$origins$entry = lOther$origins[i];
+      if (l$origins$entry != lOther$origins$entry) return false;
+    }
+
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$FetchOrigins on Query$FetchOrigins {
+  Query$FetchOrigins copyWith(
+          {List<Query$FetchOrigins$origins>? origins, String? $__typename}) =>
+      Query$FetchOrigins(
+          origins: origins == null ? this.origins : origins,
+          $__typename: $__typename == null ? this.$__typename : $__typename);
+}
+
+const queryDocumentFetchOrigins = DocumentNode(definitions: [
+  OperationDefinitionNode(
+      type: OperationType.query,
+      name: NameNode(value: 'FetchOrigins'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+            variable: VariableNode(name: NameNode(value: 'locales')),
+            type: ListTypeNode(
+                type: NamedTypeNode(
+                    name: NameNode(value: 'Locale'), isNonNull: true),
+                isNonNull: true),
+            defaultValue: DefaultValueNode(
+                value: ListValueNode(
+                    values: [EnumValueNode(name: NameNode(value: 'en'))])),
+            directives: [])
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FieldNode(
+            name: NameNode(value: 'origins'),
+            alias: NameNode(value: 'origins'),
+            arguments: [
+              ArgumentNode(
+                  name: NameNode(value: 'locales'),
+                  value: VariableNode(name: NameNode(value: 'locales')))
+            ],
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FragmentSpreadNode(
+                  name: NameNode(value: 'OriginSummary'), directives: []),
+              FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null)
+            ])),
+        FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null)
+      ])),
+  fragmentDefinitionOriginSummary,
+]);
+Query$FetchOrigins _parserFn$Query$FetchOrigins(Map<String, dynamic> data) =>
+    Query$FetchOrigins.fromJson(data);
+
+class Options$Query$FetchOrigins
+    extends graphql.QueryOptions<Query$FetchOrigins> {
+  Options$Query$FetchOrigins(
+      {String? operationName,
+      required Variables$Query$FetchOrigins variables,
+      graphql.FetchPolicy? fetchPolicy,
+      graphql.ErrorPolicy? errorPolicy,
+      graphql.CacheRereadPolicy? cacheRereadPolicy,
+      Object? optimisticResult,
+      Duration? pollInterval,
+      graphql.Context? context})
+      : super(
+            variables: variables.toJson(),
+            operationName: operationName,
+            fetchPolicy: fetchPolicy,
+            errorPolicy: errorPolicy,
+            cacheRereadPolicy: cacheRereadPolicy,
+            optimisticResult: optimisticResult,
+            pollInterval: pollInterval,
+            context: context,
+            document: queryDocumentFetchOrigins,
+            parserFn: _parserFn$Query$FetchOrigins);
+}
+
+class WatchOptions$Query$FetchOrigins
+    extends graphql.WatchQueryOptions<Query$FetchOrigins> {
+  WatchOptions$Query$FetchOrigins(
+      {String? operationName,
+      required Variables$Query$FetchOrigins variables,
+      graphql.FetchPolicy? fetchPolicy,
+      graphql.ErrorPolicy? errorPolicy,
+      graphql.CacheRereadPolicy? cacheRereadPolicy,
+      Object? optimisticResult,
+      graphql.Context? context,
+      Duration? pollInterval,
+      bool? eagerlyFetchResults,
+      bool carryForwardDataOnException = true,
+      bool fetchResults = false})
+      : super(
+            variables: variables.toJson(),
+            operationName: operationName,
+            fetchPolicy: fetchPolicy,
+            errorPolicy: errorPolicy,
+            cacheRereadPolicy: cacheRereadPolicy,
+            optimisticResult: optimisticResult,
+            context: context,
+            document: queryDocumentFetchOrigins,
+            pollInterval: pollInterval,
+            eagerlyFetchResults: eagerlyFetchResults,
+            carryForwardDataOnException: carryForwardDataOnException,
+            fetchResults: fetchResults,
+            parserFn: _parserFn$Query$FetchOrigins);
+}
+
+class FetchMoreOptions$Query$FetchOrigins extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$FetchOrigins(
+      {required graphql.UpdateQuery updateQuery,
+      required Variables$Query$FetchOrigins variables})
+      : super(
+            updateQuery: updateQuery,
+            variables: variables.toJson(),
+            document: queryDocumentFetchOrigins);
+}
+
+extension ClientExtension$Query$FetchOrigins on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$FetchOrigins>> query$FetchOrigins(
+          Options$Query$FetchOrigins options) async =>
+      await this.query(options);
+  graphql.ObservableQuery<Query$FetchOrigins> watchQuery$FetchOrigins(
+          WatchOptions$Query$FetchOrigins options) =>
+      this.watchQuery(options);
+  void writeQuery$FetchOrigins(
+          {required Query$FetchOrigins data,
+          required Variables$Query$FetchOrigins variables,
+          bool broadcast = true}) =>
+      this.writeQuery(
+          graphql.Request(
+              operation: graphql.Operation(document: queryDocumentFetchOrigins),
+              variables: variables.toJson()),
+          data: data.toJson(),
+          broadcast: broadcast);
+  Query$FetchOrigins? readQuery$FetchOrigins(
+      {required Variables$Query$FetchOrigins variables,
+      bool optimistic = true}) {
+    final result = this.readQuery(
+        graphql.Request(
+            operation: graphql.Operation(document: queryDocumentFetchOrigins),
+            variables: variables.toJson()),
+        optimistic: optimistic);
+    return result == null ? null : Query$FetchOrigins.fromJson(result);
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class Query$FetchOrigins$origins implements Fragment$OriginSummary {
+  Query$FetchOrigins$origins(
+      {required this.locale,
+      required this.id,
+      this.title,
+      required this.$__typename});
+
+  @override
+  factory Query$FetchOrigins$origins.fromJson(Map<String, dynamic> json) =>
+      _$Query$FetchOrigins$originsFromJson(json);
+
+  @JsonKey(unknownEnumValue: Enum$Locale.$unknown)
+  final Enum$Locale locale;
+
+  final String id;
+
+  final String? title;
+
+  @JsonKey(name: '__typename')
+  final String $__typename;
+
+  Map<String, dynamic> toJson() => _$Query$FetchOrigins$originsToJson(this);
+  int get hashCode {
+    final l$locale = locale;
+    final l$id = id;
+    final l$title = title;
+    final l$$__typename = $__typename;
+    return Object.hashAll([l$locale, l$id, l$title, l$$__typename]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Query$FetchOrigins$origins) ||
+        runtimeType != other.runtimeType) return false;
+    final l$locale = locale;
+    final lOther$locale = other.locale;
+    if (l$locale != lOther$locale) return false;
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) return false;
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) return false;
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) return false;
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$FetchOrigins$origins
+    on Query$FetchOrigins$origins {
+  Query$FetchOrigins$origins copyWith(
+          {Enum$Locale? locale,
+          String? id,
+          String? Function()? title,
+          String? $__typename}) =>
+      Query$FetchOrigins$origins(
+          locale: locale == null ? this.locale : locale,
+          id: id == null ? this.id : id,
+          title: title == null ? this.title : title(),
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }

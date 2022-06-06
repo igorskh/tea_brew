@@ -9,15 +9,34 @@ query FetchTeas($locales: [Locale!]! = [en]) {
     ...TeaSummary
   }
 }
+
+query FetchOrigins($locales: [Locale!]! = [en]) {
+  origins: origins(locales: $locales) {
+    ...OriginSummary
+  }
+}
+
+fragment OriginSummary on Origin {
+  locale
+  id
+  title
+}
+
 fragment TeaSummary on Tea {
   locale
   createdAt
   id
   name
+  description
   steepingTime
   steepingCount
   steepingTemperature
   steepingAmount
+  amountOfWater
+  origin {
+    id
+    title
+  }
   images {
     id
     url(transformation: {image: {resize: {height: 200, width: 200}}})

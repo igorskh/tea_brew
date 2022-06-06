@@ -5112,6 +5112,9 @@ type Tea implements Node {
   steepingCount: Int
   steepingAmount: String
 
+  """in ml"""
+  amountOfWater: Int
+
   """User that last published this document"""
   publishedBy(
     """
@@ -5943,6 +5946,7 @@ input TeaCreateInput {
   steepingTime: Int
   steepingCount: Int
   steepingAmount: String
+  amountOfWater: Int
   teaCategories: TeaCategoryCreateManyInlineInput
   origin: OriginCreateOneInlineInput
   images: AssetCreateManyInlineInput
@@ -6197,6 +6201,28 @@ input TeaManyWhereInput {
 
   """All values not ending with the given string"""
   steepingAmount_not_ends_with: String
+  amountOfWater: Int
+
+  """All values that are not equal to given value."""
+  amountOfWater_not: Int
+
+  """All values that are contained in given list."""
+  amountOfWater_in: [Int!]
+
+  """All values that are not contained in given list."""
+  amountOfWater_not_in: [Int!]
+
+  """All values less than the given value."""
+  amountOfWater_lt: Int
+
+  """All values less than or equal the given value."""
+  amountOfWater_lte: Int
+
+  """All values greater than the given value."""
+  amountOfWater_gt: Int
+
+  """All values greater than or equal the given value."""
+  amountOfWater_gte: Int
   publishedBy: UserWhereInput
   updatedBy: UserWhereInput
   createdBy: UserWhereInput
@@ -6233,6 +6259,8 @@ enum TeaOrderByInput {
   steepingCount_DESC
   steepingAmount_ASC
   steepingAmount_DESC
+  amountOfWater_ASC
+  amountOfWater_DESC
 }
 
 input TeaUpdateInput {
@@ -6245,6 +6273,7 @@ input TeaUpdateInput {
   steepingTime: Int
   steepingCount: Int
   steepingAmount: String
+  amountOfWater: Int
   teaCategories: TeaCategoryUpdateManyInlineInput
   origin: OriginUpdateOneInlineInput
   images: AssetUpdateManyInlineInput
@@ -6310,6 +6339,7 @@ input TeaUpdateManyInput {
   steepingTime: Int
   steepingCount: Int
   steepingAmount: String
+  amountOfWater: Int
 
   """Optional updates to localizations"""
   localizations: TeaUpdateManyLocalizationsInput
@@ -6645,6 +6675,28 @@ input TeaWhereInput {
 
   """All values not ending with the given string"""
   steepingAmount_not_ends_with: String
+  amountOfWater: Int
+
+  """All values that are not equal to given value."""
+  amountOfWater_not: Int
+
+  """All values that are contained in given list."""
+  amountOfWater_in: [Int!]
+
+  """All values that are not contained in given list."""
+  amountOfWater_not_in: [Int!]
+
+  """All values less than the given value."""
+  amountOfWater_lt: Int
+
+  """All values less than or equal the given value."""
+  amountOfWater_lte: Int
+
+  """All values greater than the given value."""
+  amountOfWater_gt: Int
+
+  """All values greater than or equal the given value."""
+  amountOfWater_gte: Int
   publishedBy: UserWhereInput
   updatedBy: UserWhereInput
   createdBy: UserWhereInput

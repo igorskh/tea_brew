@@ -6,6 +6,31 @@ part of 'queries.graphql.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+Fragment$OriginSummary _$Fragment$OriginSummaryFromJson(
+        Map<String, dynamic> json) =>
+    Fragment$OriginSummary(
+      locale: $enumDecode(_$Enum$LocaleEnumMap, json['locale'],
+          unknownValue: Enum$Locale.$unknown),
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      $__typename: json['__typename'] as String,
+    );
+
+Map<String, dynamic> _$Fragment$OriginSummaryToJson(
+        Fragment$OriginSummary instance) =>
+    <String, dynamic>{
+      'locale': _$Enum$LocaleEnumMap[instance.locale],
+      'id': instance.id,
+      'title': instance.title,
+      '__typename': instance.$__typename,
+    };
+
+const _$Enum$LocaleEnumMap = {
+  Enum$Locale.en: 'en',
+  Enum$Locale.ru: 'ru',
+  Enum$Locale.$unknown: r'$unknown',
+};
+
 Fragment$TeaSummary _$Fragment$TeaSummaryFromJson(Map<String, dynamic> json) =>
     Fragment$TeaSummary(
       locale: $enumDecode(_$Enum$LocaleEnumMap, json['locale'],
@@ -13,10 +38,16 @@ Fragment$TeaSummary _$Fragment$TeaSummaryFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'] as String,
       id: json['id'] as String,
       name: json['name'] as String,
+      description: json['description'] as String?,
       steepingTime: json['steepingTime'] as int?,
       steepingCount: json['steepingCount'] as int?,
       steepingTemperature: json['steepingTemperature'] as int?,
       steepingAmount: json['steepingAmount'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
+      origin: json['origin'] == null
+          ? null
+          : Fragment$TeaSummary$origin.fromJson(
+              json['origin'] as Map<String, dynamic>),
       images: (json['images'] as List<dynamic>)
           .map((e) =>
               Fragment$TeaSummary$images.fromJson(e as Map<String, dynamic>))
@@ -35,20 +66,33 @@ Map<String, dynamic> _$Fragment$TeaSummaryToJson(
       'createdAt': instance.createdAt,
       'id': instance.id,
       'name': instance.name,
+      'description': instance.description,
       'steepingTime': instance.steepingTime,
       'steepingCount': instance.steepingCount,
       'steepingTemperature': instance.steepingTemperature,
       'steepingAmount': instance.steepingAmount,
+      'amountOfWater': instance.amountOfWater,
+      'origin': instance.origin?.toJson(),
       'images': instance.images.map((e) => e.toJson()).toList(),
       'teaCategories': instance.teaCategories.map((e) => e.toJson()).toList(),
       '__typename': instance.$__typename,
     };
 
-const _$Enum$LocaleEnumMap = {
-  Enum$Locale.en: 'en',
-  Enum$Locale.ru: 'ru',
-  Enum$Locale.$unknown: r'$unknown',
-};
+Fragment$TeaSummary$origin _$Fragment$TeaSummary$originFromJson(
+        Map<String, dynamic> json) =>
+    Fragment$TeaSummary$origin(
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      $__typename: json['__typename'] as String,
+    );
+
+Map<String, dynamic> _$Fragment$TeaSummary$originToJson(
+        Fragment$TeaSummary$origin instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      '__typename': instance.$__typename,
+    };
 
 Fragment$TeaSummary$images _$Fragment$TeaSummary$imagesFromJson(
         Map<String, dynamic> json) =>
@@ -230,10 +274,16 @@ Query$FetchTeas$teas _$Query$FetchTeas$teasFromJson(
       createdAt: json['createdAt'] as String,
       id: json['id'] as String,
       name: json['name'] as String,
+      description: json['description'] as String?,
       steepingTime: json['steepingTime'] as int?,
       steepingCount: json['steepingCount'] as int?,
       steepingTemperature: json['steepingTemperature'] as int?,
       steepingAmount: json['steepingAmount'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
+      origin: json['origin'] == null
+          ? null
+          : Query$FetchTeas$teas$origin.fromJson(
+              json['origin'] as Map<String, dynamic>),
       images: (json['images'] as List<dynamic>)
           .map((e) =>
               Query$FetchTeas$teas$images.fromJson(e as Map<String, dynamic>))
@@ -252,12 +302,31 @@ Map<String, dynamic> _$Query$FetchTeas$teasToJson(
       'createdAt': instance.createdAt,
       'id': instance.id,
       'name': instance.name,
+      'description': instance.description,
       'steepingTime': instance.steepingTime,
       'steepingCount': instance.steepingCount,
       'steepingTemperature': instance.steepingTemperature,
       'steepingAmount': instance.steepingAmount,
+      'amountOfWater': instance.amountOfWater,
+      'origin': instance.origin?.toJson(),
       'images': instance.images.map((e) => e.toJson()).toList(),
       'teaCategories': instance.teaCategories.map((e) => e.toJson()).toList(),
+      '__typename': instance.$__typename,
+    };
+
+Query$FetchTeas$teas$origin _$Query$FetchTeas$teas$originFromJson(
+        Map<String, dynamic> json) =>
+    Query$FetchTeas$teas$origin(
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      $__typename: json['__typename'] as String,
+    );
+
+Map<String, dynamic> _$Query$FetchTeas$teas$originToJson(
+        Query$FetchTeas$teas$origin instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
       '__typename': instance.$__typename,
     };
 
@@ -288,5 +357,54 @@ Map<String, dynamic> _$Query$FetchTeas$teas$teaCategoriesToJson(
         Query$FetchTeas$teas$teaCategories instance) =>
     <String, dynamic>{
       'id': instance.id,
+      '__typename': instance.$__typename,
+    };
+
+Variables$Query$FetchOrigins _$Variables$Query$FetchOriginsFromJson(
+        Map<String, dynamic> json) =>
+    Variables$Query$FetchOrigins(
+      locales: (json['locales'] as List<dynamic>)
+          .map((e) => $enumDecode(_$Enum$LocaleEnumMap, e,
+              unknownValue: Enum$Locale.$unknown))
+          .toList(),
+    );
+
+Map<String, dynamic> _$Variables$Query$FetchOriginsToJson(
+        Variables$Query$FetchOrigins instance) =>
+    <String, dynamic>{
+      'locales': instance.locales.map((e) => _$Enum$LocaleEnumMap[e]).toList(),
+    };
+
+Query$FetchOrigins _$Query$FetchOriginsFromJson(Map<String, dynamic> json) =>
+    Query$FetchOrigins(
+      origins: (json['origins'] as List<dynamic>)
+          .map((e) =>
+              Query$FetchOrigins$origins.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      $__typename: json['__typename'] as String,
+    );
+
+Map<String, dynamic> _$Query$FetchOriginsToJson(Query$FetchOrigins instance) =>
+    <String, dynamic>{
+      'origins': instance.origins.map((e) => e.toJson()).toList(),
+      '__typename': instance.$__typename,
+    };
+
+Query$FetchOrigins$origins _$Query$FetchOrigins$originsFromJson(
+        Map<String, dynamic> json) =>
+    Query$FetchOrigins$origins(
+      locale: $enumDecode(_$Enum$LocaleEnumMap, json['locale'],
+          unknownValue: Enum$Locale.$unknown),
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      $__typename: json['__typename'] as String,
+    );
+
+Map<String, dynamic> _$Query$FetchOrigins$originsToJson(
+        Query$FetchOrigins$origins instance) =>
+    <String, dynamic>{
+      'locale': _$Enum$LocaleEnumMap[instance.locale],
+      'id': instance.id,
+      'title': instance.title,
       '__typename': instance.$__typename,
     };

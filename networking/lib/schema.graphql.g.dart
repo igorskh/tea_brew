@@ -4132,6 +4132,7 @@ Input$TeaCreateInput _$Input$TeaCreateInputFromJson(
       steepingTime: json['steepingTime'] as int?,
       steepingCount: json['steepingCount'] as int?,
       steepingAmount: json['steepingAmount'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
       teaCategories: json['teaCategories'] == null
           ? null
           : Input$TeaCategoryCreateManyInlineInput.fromJson(
@@ -4161,6 +4162,7 @@ Map<String, dynamic> _$Input$TeaCreateInputToJson(
       'steepingTime': instance.steepingTime,
       'steepingCount': instance.steepingCount,
       'steepingAmount': instance.steepingAmount,
+      'amountOfWater': instance.amountOfWater,
       'teaCategories': instance.teaCategories?.toJson(),
       'origin': instance.origin?.toJson(),
       'images': instance.images?.toJson(),
@@ -4371,6 +4373,18 @@ Input$TeaManyWhereInput _$Input$TeaManyWhereInputFromJson(
       steepingAmount_ends_with: json['steepingAmount_ends_with'] as String?,
       steepingAmount_not_ends_with:
           json['steepingAmount_not_ends_with'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
+      amountOfWater_not: json['amountOfWater_not'] as int?,
+      amountOfWater_in: (json['amountOfWater_in'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
+      amountOfWater_not_in: (json['amountOfWater_not_in'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
+      amountOfWater_lt: json['amountOfWater_lt'] as int?,
+      amountOfWater_lte: json['amountOfWater_lte'] as int?,
+      amountOfWater_gt: json['amountOfWater_gt'] as int?,
+      amountOfWater_gte: json['amountOfWater_gte'] as int?,
       publishedBy: json['publishedBy'] == null
           ? null
           : Input$UserWhereInput.fromJson(
@@ -4500,6 +4514,14 @@ Map<String, dynamic> _$Input$TeaManyWhereInputToJson(
       'steepingAmount_not_starts_with': instance.steepingAmount_not_starts_with,
       'steepingAmount_ends_with': instance.steepingAmount_ends_with,
       'steepingAmount_not_ends_with': instance.steepingAmount_not_ends_with,
+      'amountOfWater': instance.amountOfWater,
+      'amountOfWater_not': instance.amountOfWater_not,
+      'amountOfWater_in': instance.amountOfWater_in,
+      'amountOfWater_not_in': instance.amountOfWater_not_in,
+      'amountOfWater_lt': instance.amountOfWater_lt,
+      'amountOfWater_lte': instance.amountOfWater_lte,
+      'amountOfWater_gt': instance.amountOfWater_gt,
+      'amountOfWater_gte': instance.amountOfWater_gte,
       'publishedBy': instance.publishedBy?.toJson(),
       'updatedBy': instance.updatedBy?.toJson(),
       'createdBy': instance.createdBy?.toJson(),
@@ -4524,6 +4546,7 @@ Input$TeaUpdateInput _$Input$TeaUpdateInputFromJson(
       steepingTime: json['steepingTime'] as int?,
       steepingCount: json['steepingCount'] as int?,
       steepingAmount: json['steepingAmount'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
       teaCategories: json['teaCategories'] == null
           ? null
           : Input$TeaCategoryUpdateManyInlineInput.fromJson(
@@ -4551,6 +4574,7 @@ Map<String, dynamic> _$Input$TeaUpdateInputToJson(
       'steepingTime': instance.steepingTime,
       'steepingCount': instance.steepingCount,
       'steepingAmount': instance.steepingAmount,
+      'amountOfWater': instance.amountOfWater,
       'teaCategories': instance.teaCategories?.toJson(),
       'origin': instance.origin?.toJson(),
       'images': instance.images?.toJson(),
@@ -4670,6 +4694,7 @@ Input$TeaUpdateManyInput _$Input$TeaUpdateManyInputFromJson(
       steepingTime: json['steepingTime'] as int?,
       steepingCount: json['steepingCount'] as int?,
       steepingAmount: json['steepingAmount'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
       localizations: json['localizations'] == null
           ? null
           : Input$TeaUpdateManyLocalizationsInput.fromJson(
@@ -4685,6 +4710,7 @@ Map<String, dynamic> _$Input$TeaUpdateManyInputToJson(
       'steepingTime': instance.steepingTime,
       'steepingCount': instance.steepingCount,
       'steepingAmount': instance.steepingAmount,
+      'amountOfWater': instance.amountOfWater,
       'localizations': instance.localizations?.toJson(),
     };
 
@@ -4998,6 +5024,18 @@ Input$TeaWhereInput _$Input$TeaWhereInputFromJson(Map<String, dynamic> json) =>
       steepingAmount_ends_with: json['steepingAmount_ends_with'] as String?,
       steepingAmount_not_ends_with:
           json['steepingAmount_not_ends_with'] as String?,
+      amountOfWater: json['amountOfWater'] as int?,
+      amountOfWater_not: json['amountOfWater_not'] as int?,
+      amountOfWater_in: (json['amountOfWater_in'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
+      amountOfWater_not_in: (json['amountOfWater_not_in'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
+      amountOfWater_lt: json['amountOfWater_lt'] as int?,
+      amountOfWater_lte: json['amountOfWater_lte'] as int?,
+      amountOfWater_gt: json['amountOfWater_gt'] as int?,
+      amountOfWater_gte: json['amountOfWater_gte'] as int?,
       publishedBy: json['publishedBy'] == null
           ? null
           : Input$UserWhereInput.fromJson(
@@ -5147,6 +5185,14 @@ Map<String, dynamic> _$Input$TeaWhereInputToJson(
       'steepingAmount_not_starts_with': instance.steepingAmount_not_starts_with,
       'steepingAmount_ends_with': instance.steepingAmount_ends_with,
       'steepingAmount_not_ends_with': instance.steepingAmount_not_ends_with,
+      'amountOfWater': instance.amountOfWater,
+      'amountOfWater_not': instance.amountOfWater_not,
+      'amountOfWater_in': instance.amountOfWater_in,
+      'amountOfWater_not_in': instance.amountOfWater_not_in,
+      'amountOfWater_lt': instance.amountOfWater_lt,
+      'amountOfWater_lte': instance.amountOfWater_lte,
+      'amountOfWater_gt': instance.amountOfWater_gt,
+      'amountOfWater_gte': instance.amountOfWater_gte,
       'publishedBy': instance.publishedBy?.toJson(),
       'updatedBy': instance.updatedBy?.toJson(),
       'createdBy': instance.createdBy?.toJson(),
