@@ -8,7 +8,7 @@ import 'tea_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final SyncTeaRepository teaRepository = SyncTeaRepository();
+  final SyncTeaRepository teaRepository = SyncTeaRepository(true);
   await setupTimezone();
 
   runApp(TeaApp(

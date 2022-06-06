@@ -5,14 +5,22 @@ import 'package:tea_brew/core/models/tea.dart';
 import 'package:tea_brew/core/repositories/errors.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
-class HiveTeaRepository implements AbstractTeaRepository {
-  final Box<Tea> teaBox;
-  final Box<TeaCategory> categoryBox;
+class HiveTeaRepositoryBoxContainer {
+  late final Box<Tea> teaBox;
+  late final Box<TeaCategory> categoryBox;
 
-  HiveTeaRepository({
-    required this.teaBox,
-    required this.categoryBox,
-  });
+  HiveTeaRepositoryBoxContainer(
+      {required this.teaBox, required this.categoryBox});
+}
+
+class HiveTeaRepository implements AbstractTeaRepository {
+  final HiveTeaRepositoryBoxContainer boxContainer;
+  Box<TeaCategory> categoryBox;
+  Box<Tea> teaBox;
+
+  HiveTeaRepository(this.boxContainer)
+      : categoryBox = boxContainer.categoryBox,
+        teaBox = boxContainer.teaBox;
 
   @override
   Future<List<TeaCategory>> fetchCategories() async {
@@ -42,33 +50,35 @@ class HiveTeaRepository implements AbstractTeaRepository {
   @override
   Future<Tea> createTea(Tea tea) async {
     try {
-      teaBox.values.firstWhere((element) => tea.id == element.id);
-      return Future.error(
-        TeaRepositoryError(
-          9,
-          "Tea already exists",
-        ),
+      getTeaByID(tea.id);
+      throw TeaRepositoryError(
+        9,
+        "Tea already exists",
       );
-    } on StateError {
-      tea.category = null;
-      await teaBox.add(tea);
-      return tea;
+    } on TeaRepositoryError catch (e) {
+      if (e.code == 4) {
+        tea.category = null;
+        await teaBox.add(tea);
+        return tea;
+      }
+      rethrow;
     }
   }
 
   @override
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) async {
     try {
-      categoryBox.values.firstWhere((element) => teaCategory.id == element.id);
-      return Future.error(
-        TeaRepositoryError(
-          9,
-          "Tea category already exists",
-        ),
+      getTeaCategoryByID(teaCategory.id);
+      throw TeaRepositoryError(
+        9,
+        "Tea category already exists",
       );
-    } on StateError {
-      await categoryBox.add(teaCategory);
-      return teaCategory;
+    } on TeaRepositoryError catch (e) {
+      if (e.code == 4) {
+        await categoryBox.add(teaCategory);
+        return teaCategory;
+      }
+      rethrow;
     }
   }
 
@@ -80,5 +90,46 @@ class HiveTeaRepository implements AbstractTeaRepository {
   @override
   Future<void> deleteTeaCategory(TeaCategory category) async {
     await category.delete();
+  }
+
+  @override
+  Future<TeaCategory> updateTeaCategory(TeaCategory teaCategory) async {
+    final currentTeaCategory = await getTeaCategoryByID(teaCategory.id);
+    categoryBox.putAt(currentTeaCategory.key, teaCategory);
+    return teaCategory;
+  }
+
+  @override
+  Future<Tea> updateTea(Tea tea) async {
+    final currentTea = await getTeaByID(tea.id);
+    await teaBox.putAt(currentTea.key, tea);
+    return tea;
+  }
+
+  @override
+  Future<Tea> getTeaByID(String id) {
+    try {
+      final tea = teaBox.values.firstWhere((element) => id == element.id);
+      return Future.sync(() => tea);
+    } on StateError {
+      throw TeaRepositoryError(
+        4,
+        "Tea not found",
+      );
+    }
+  }
+
+  @override
+  Future<TeaCategory> getTeaCategoryByID(String id) {
+    try {
+      final teaCategory =
+          categoryBox.values.firstWhere((element) => id == element.id);
+      return Future.sync(() => teaCategory);
+    } on StateError {
+      throw TeaRepositoryError(
+        4,
+        "Tea category not found",
+      );
+    }
   }
 }

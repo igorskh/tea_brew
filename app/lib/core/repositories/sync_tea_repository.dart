@@ -6,17 +6,22 @@ import 'errors.dart';
 import 'mock_data.dart';
 
 class SyncTeaRepository implements AbstractTeaRepository {
-  var teaBox = sampleTeas;
-  var teaCategoryBox = sampleTeaCategories;
+  SyncTeaRepository(bool isMock) {
+    _teaBox = isMock ? sampleTeas : [];
+    categoryBox = isMock ? sampleTeaCategories : [];
+  }
+
+  late final List<Tea> _teaBox;
+  late final List<TeaCategory> categoryBox;
 
   @override
   Future<List<TeaCategory>> fetchCategories() {
-    return Future.sync(() => teaCategoryBox);
+    return Future.sync(() => categoryBox);
   }
 
   @override
   Future<List<Tea>> fetchTeas(String? categoryID) {
-    List<Tea> teas = teaBox;
+    List<Tea> teas = _teaBox;
     if (categoryID != null && categoryID != "") {
       teas = teas.where((t) => t.categoryID == categoryID).toList();
     }
@@ -25,44 +30,85 @@ class SyncTeaRepository implements AbstractTeaRepository {
 
   @override
   Future<Tea> createTea(Tea tea) {
-    if (teaBox.indexWhere((element) => tea.id == element.id) > -1) {
-      return Future.error(
-        TeaRepositoryError(
-          9,
-          "Tea already exists",
-        ),
+    if (getTeaIndex(tea.id) > -1) {
+      throw TeaRepositoryError(
+        9,
+        "Tea already exists",
       );
     }
 
-    teaBox.add(tea);
+    _teaBox.add(tea);
     return Future.sync(() => tea);
   }
 
   @override
   Future<TeaCategory> createTeaCategory(TeaCategory teaCategory) {
-    if (teaCategoryBox.indexWhere((element) => teaCategory.id == element.id) >
-        -1) {
-      return Future.error(
-        TeaRepositoryError(
-          9,
-          "Tea category already exists",
-        ),
+    if (getTeaCategoryIndex(teaCategory.id) > -1) {
+      throw TeaRepositoryError(
+        9,
+        "Tea category already exists",
       );
     }
 
-    teaCategoryBox.add(teaCategory);
+    categoryBox.add(teaCategory);
     return Future.sync(() => teaCategory);
   }
 
   @override
   Future<void> deleteTea(Tea tea) {
-    teaBox.remove(tea);
+    _teaBox.removeWhere((e) => e.id == tea.id);
     return Future.sync(() => null);
   }
 
   @override
   Future<void> deleteTeaCategory(TeaCategory teaCategory) {
-    teaCategoryBox.remove(teaCategory);
+    categoryBox.removeWhere((e) => e.id == teaCategory.id);
     return Future.sync(() => null);
+  }
+
+  int getTeaIndex(String id) {
+    return _teaBox.indexWhere((element) => element.id == id);
+  }
+
+  int getTeaCategoryIndex(String id) {
+    return categoryBox.indexWhere((element) => element.id == id);
+  }
+
+  @override
+  Future<Tea> getTeaByID(String id) {
+    final index = getTeaIndex(id);
+    if (index == -1) {
+      throw TeaRepositoryError(
+        4,
+        "Tea not found",
+      );
+    }
+    return Future.sync(() => _teaBox[index]);
+  }
+
+  @override
+  Future<TeaCategory> getTeaCategoryByID(String id) {
+    final index = getTeaCategoryIndex(id);
+    if (index == -1) {
+      throw TeaRepositoryError(
+        4,
+        "Tea not found",
+      );
+    }
+    return Future.sync(() => categoryBox[index]);
+  }
+
+  @override
+  Future<Tea> updateTea(Tea tea) {
+    final index = getTeaIndex(tea.id);
+    _teaBox[index] = tea;
+    return Future.sync(() => tea);
+  }
+
+  @override
+  Future<TeaCategory> updateTeaCategory(TeaCategory teaCategory) {
+    final index = getTeaCategoryIndex(teaCategory.id);
+    categoryBox[index] = teaCategory;
+    return Future.sync(() => teaCategory);
   }
 }

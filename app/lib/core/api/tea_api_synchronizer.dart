@@ -1,4 +1,5 @@
 import 'package:tea_brew/core/api/tea_api_connector.dart';
+import 'package:tea_brew/core/repositories/errors.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
 enum TeaAPISynchronizerStatus {
@@ -21,11 +22,23 @@ class TeaAPISynchronizer {
 
     yield TeaAPISynchronizerStatus.syncing;
     for (final teaCategory in teaCategories) {
-      await _repository.createTeaCategory(teaCategory);
+      try {
+        await _repository.createTeaCategory(teaCategory);
+      } on TeaRepositoryError catch (e) {
+        if (e.code == 9) {
+          await _repository.updateTeaCategory(teaCategory);
+        }
+      }
     }
 
     for (final tea in teas) {
-      await _repository.createTea(tea);
+      try {
+        await _repository.createTea(tea);
+      } on TeaRepositoryError catch (e) {
+        if (e.code == 9) {
+          await _repository.updateTea(tea);
+        }
+      }
     }
     yield TeaAPISynchronizerStatus.done;
   }

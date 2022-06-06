@@ -26,10 +26,12 @@ void main(List<String> args) async {
   var categoryBox = await Hive.openBox<TeaCategory>('categoryBox');
   var teaBox = await Hive.openBox<Tea>('teaBox');
 
-  final HiveTeaRepository teaRepository = HiveTeaRepository(
+  final boxContainer = HiveTeaRepositoryBoxContainer(
     categoryBox: categoryBox,
     teaBox: teaBox,
   );
+
+  final HiveTeaRepository teaRepository = HiveTeaRepository(boxContainer);
 
   if (const bool.hasEnvironment("HIVE_MOCK_DATA")) {
     await teaRepository.createMockData();
