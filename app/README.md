@@ -34,3 +34,9 @@ The following argument disables API:
 ```bash
 flutter run ./lib/main_hive.dart --dart-define=NO_API=yes
 ```
+
+## Test with coverage
+
+```bash
+flutter test --coverage
+```

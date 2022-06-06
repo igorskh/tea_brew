@@ -4,6 +4,30 @@ import 'package:tea_brew/core/repositories/errors.dart';
 import 'package:tea_brew/core/repositories/mock_data.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
+Future<void> testRepositoryCreateAndFetchTea(
+    AbstractTeaRepository teaRepository) async {
+  teaRepository.createTea(sampleTeas[0]);
+
+  expect(
+    (await teaRepository.fetchTeas(sampleTeas[0].categoryID)).length,
+    equals(1),
+  );
+}
+
+Future<void> testRepositoryCreateAndFetchTeaCategories(
+    AbstractTeaRepository teaRepository) async {
+  teaRepository.createTeaCategory(sampleTeaCategories[0]);
+
+  expect(
+    (await teaRepository.fetchCategories()).length,
+    equals(1),
+  );
+  expect(
+    (await teaRepository.fetchCategories()).first,
+    equals(sampleTeaCategories[0]),
+  );
+}
+
 Future<void> testRepostitoryCreateAndDuplicateTea(
     AbstractTeaRepository teaRepository) async {
   var tea = sampleTeas[0];

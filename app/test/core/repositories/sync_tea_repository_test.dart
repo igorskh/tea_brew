@@ -4,6 +4,15 @@ import 'package:tea_brew/core/repositories/sync_tea_repository.dart';
 import 'common.dart';
 
 void main() {
+  test('Creates and fetches Tea elements in SyncTeaRepository', () async {
+    final repository = SyncTeaRepository(false);
+    await testRepositoryCreateAndFetchTea(repository);
+  });
+  test('Creates and fetches TeaCategory elements in SyncTeaRepository',
+      () async {
+    final repository = SyncTeaRepository(false);
+    await testRepositoryCreateAndFetchTeaCategories(repository);
+  });
   test('Creates and tries to duplicate Tea in SyncTeaRepository', () async {
     final repository = SyncTeaRepository(false);
     await testRepostitoryCreateAndDuplicateTea(repository);

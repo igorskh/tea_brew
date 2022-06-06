@@ -3,16 +3,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tea_brew/core/models/models.dart';
 import 'package:tea_brew/core/repositories/hive_tea_repositry.dart';
-import 'package:tea_brew/core/repositories/tea_repository.dart';
-
-import 'common.dart';
+import 'package:tea_brew/core/repositories/mock_data.dart';
 
 class MockBox<T> extends Mock implements Box<T> {}
 
 void main() {
-  late AbstractTeaRepository repository;
+  late HiveTeaRepository repository;
   late Box<TeaCategory> categoryBox;
   late Box<Tea> teaBox;
+
   Hive.registerAdapter(TeaAdapter());
   Hive.registerAdapter(TeaCategoryAdapter());
 
@@ -37,23 +36,8 @@ void main() {
   });
 
   test('Creates and fetches Tea elements in HiveTeaRepository', () async {
-    await testRepositoryCreateAndFetchTea(repository);
-  });
-  test('Creates and fetches TeaCategory elements in HiveTeaRepository',
-      () async {
-    await testRepositoryCreateAndFetchTeaCategories(repository);
-  });
-  test('Creates and tries to duplicate Tea in HiveTeaRepository', () async {
-    await testRepostitoryCreateAndDuplicateTea(repository);
-  });
-  test('Creates and updates an Tea in HiveTeaRepository', () async {
-    await testRepostitoryCreateAndUpdateTea(repository);
-  });
-  test('Creates and tries to duplicate TeaCategory in HiveTeaRepository',
-      () async {
-    await testRepostitoryCreateAndDuplicateCategory(repository);
-  });
-  test('Creates and updates an TeaCategory in HiveTeaRepository', () async {
-    await testRepostitoryCreateAndUpdateCategory(repository);
+    await repository.createMockData();
+    expect(teaBox.values.length, equals(sampleTeas.length));
+    expect(categoryBox.values.length, equals(sampleTeaCategories.length));
   });
 }
