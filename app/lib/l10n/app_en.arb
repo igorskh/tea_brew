@@ -1,6 +1,10 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    }
+    "synchronizationLoading": "Loading...",
+    "synchronizationFinished": "Synchronization is finished!",
+    "synchronizationFetching": "Fetching data from the API...",
+    "synchronizationDB": "Synchronizing database...",
+    "detailsType": "Type",
+    "detailsOrigin": "Origin",
+    "detailsSteepingTime": "Steeping Time",
+    "detailsTemperature": "Temperature"
 }

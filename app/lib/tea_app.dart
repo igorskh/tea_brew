@@ -63,9 +63,11 @@ class TeaApp extends StatelessWidget {
           ),
           localizationsDelegates: const [
             AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
+            ...GlobalCupertinoLocalizations.delegates,
+            ...GlobalMaterialLocalizations.delegates,
           ],
+          locale: const Locale('ru'),
           supportedLocales: const [
             Locale('en', ''),
             Locale('ru', ''),

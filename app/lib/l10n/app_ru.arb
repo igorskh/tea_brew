@@ -1,3 +1,10 @@
 {
-    "helloWorld": "Привет мир!"
+    "synchronizationLoading": "Загрузка...",
+    "synchronizationFinished": "Синхронизация завершена!",
+    "synchronizationFetching": "Получение данных из API...",
+    "synchronizationDB": "Синхронизация базы данных...",
+    "detailsType": "Тип",
+    "detailsOrigin": "Происхождение",
+    "detailsSteepingTime": "Время заваривания",
+    "detailsTemperature": "Температура"
 }

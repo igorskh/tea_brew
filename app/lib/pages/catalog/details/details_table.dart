@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:tea_brew/core/models/models.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'details_table_cell.dart';
 
@@ -17,22 +18,22 @@ class DetailsTable extends StatelessWidget {
       children: [
         if (tea.category != null)
           DetailsTableCell(
-            title: "Type",
+            title: AppLocalizations.of(context)!.detailsType,
             text: tea.category!.title,
           ),
         if (tea.origin != null)
           DetailsTableCell(
-            title: "Origin",
+            title: AppLocalizations.of(context)!.detailsOrigin,
             text: tea.origin!,
           ),
         if (tea.steepingTime != null)
           DetailsTableCell(
-            title: "Steeping time",
+            title: AppLocalizations.of(context)!.detailsSteepingTime,
             text: "${tea.steepingTime} s",
           ),
         if (tea.steepingTemperature != null)
           DetailsTableCell(
-            title: "Temperature",
+            title: AppLocalizations.of(context)!.detailsTemperature,
             text: "${tea.steepingTemperature} °C",
           ),
       ],

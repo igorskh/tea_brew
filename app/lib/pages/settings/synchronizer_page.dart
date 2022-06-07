@@ -5,13 +5,7 @@ import 'package:tea_brew/core/api/tea_api_synchronizer.dart';
 import 'package:tea_brew/core/catalog/bloc/catalog_bloc.dart';
 import 'package:tea_brew/core/repositories/tea_repository.dart';
 
-Stream<TeaAPISynchronizerStatus> streamTest() async* {
-  yield TeaAPISynchronizerStatus.idle;
-
-  await Future.delayed(const Duration(seconds: 1), () async {});
-
-  yield TeaAPISynchronizerStatus.done;
-}
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SynchronizerPage extends StatefulWidget {
   const SynchronizerPage({Key? key}) : super(key: key);
@@ -21,7 +15,7 @@ class SynchronizerPage extends StatefulWidget {
 }
 
 class _SynchronizerPageState extends State<SynchronizerPage> {
-  String status = "Loading...";
+  String status = "";
 
   void _onFinished() {
     BlocProvider.of<CatalogBloc>(context).add(
@@ -30,7 +24,7 @@ class _SynchronizerPageState extends State<SynchronizerPage> {
       ),
     );
     setState(() {
-      status = "Finished!";
+      status = AppLocalizations.of(context)!.synchronizationFinished;
     });
     Future.delayed(
       const Duration(seconds: 1),
@@ -41,6 +35,14 @@ class _SynchronizerPageState extends State<SynchronizerPage> {
   @override
   void initState() {
     super.initState();
+
+    // AppLocalizations.of(context) can't be access before initState finished
+    () async {
+      await Future.delayed(Duration.zero);
+      setState(() {
+        status = AppLocalizations.of(context)!.synchronizationLoading;
+      });
+    }();
 
     try {
       TeaAPIConnector teaAPIConnector =
@@ -56,13 +58,13 @@ class _SynchronizerPageState extends State<SynchronizerPage> {
       synchronizer.synchronize().listen((event) {
         if (event == TeaAPISynchronizerStatus.fetching) {
           setState(() {
-            status = "Fetching data from the API...";
+            status = AppLocalizations.of(context)!.synchronizationFetching;
           });
         } else if (event == TeaAPISynchronizerStatus.done) {
           _onFinished();
         } else if (event == TeaAPISynchronizerStatus.syncing) {
           setState(() {
-            status = "Synchronizing database...";
+            status = AppLocalizations.of(context)!.synchronizationDB;
           });
         }
       });

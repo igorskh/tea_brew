@@ -8,7 +8,7 @@ class GraphCMSAPIConnector implements TeaAPIConnector {
   late final GraphQLClient _client;
   late final Enum$Locale _locale;
 
-  GraphCMSAPIConnector(apiURL, {Locale locale = Locale.en}) {
+  GraphCMSAPIConnector(apiURL, {TeaAppLocale locale = TeaAppLocale.en}) {
     final httpLink = HttpLink(
       apiURL,
     );
@@ -76,8 +76,8 @@ class GraphCMSAPIConnector implements TeaAPIConnector {
 }
 
 extension GraphCMSAPIConnectorLocale on GraphCMSAPIConnector {
-  Enum$Locale apiLocale(Locale locale) {
-    if (locale == Locale.ru) {
+  Enum$Locale apiLocale(TeaAppLocale locale) {
+    if (locale == TeaAppLocale.ru) {
       return Enum$Locale.ru;
     }
     return Enum$Locale.en;

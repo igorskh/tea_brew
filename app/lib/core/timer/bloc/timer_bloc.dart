@@ -14,7 +14,7 @@ part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
-  final FlutterLocalNotificationsPlugin localNotificationsPlugin;
+  final FlutterLocalNotificationsPlugin? localNotificationsPlugin;
 
   StreamSubscription<int>? _tickerSubscription;
 
@@ -46,9 +46,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _cancelScheduleTimer(bool scheduleNew, {int? duration}) {
-    localNotificationsPlugin.cancel(0).then((value) {
+    localNotificationsPlugin?.cancel(0).then((value) {
       if (scheduleNew && duration != null) {
-        localNotificationsPlugin.zonedSchedule(
+        localNotificationsPlugin?.zonedSchedule(
             0,
             'Your tea is ready!',
             '${state.tea?.title ?? "Your tea"} is brewed.',

@@ -1,4 +1,4 @@
-enum Locale {
+enum TeaAppLocale {
   ru,
   en,
 }
