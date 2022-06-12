@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:tea_brew/pages/home_page.dart';
 import 'package:tea_brew/pages/catalog/details/details_page.dart';
+import 'package:tea_brew/pages/search/search_page.dart';
 import 'package:tea_brew/pages/settings/synchronizer_page.dart';
 import 'package:tea_brew/pages/timer/timer_page.dart';
 import 'package:tea_brew/pages/unknown_page.dart';
@@ -22,6 +23,8 @@ Page routeToPage(AppRoute route) {
     child = DetailsPage(tea: route.tea!);
   } else if (route.isPage(AppPages.timer)) {
     child = const TimerPage();
+  } else if (route.isPage(AppPages.search)) {
+    child = const SearchPage();
   } else if (route.isPage(AppPages.synchronizer)) {
     child = const SynchronizerPage();
   } else {

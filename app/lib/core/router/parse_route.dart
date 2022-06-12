@@ -1,6 +1,7 @@
 part of 'router.dart';
 
 AppRoute parseRoute(Uri uri) {
+  // Default route
   if (uri.pathSegments.isEmpty) {
     return AppRoute.synchronizer();
   }
@@ -13,6 +14,8 @@ AppRoute parseRoute(Uri uri) {
       return AppRoute.synchronizer();
     } else if (uri.pathSegments[0] == AppRoute.pagePrefix(AppPages.settings)) {
       return AppRoute.settings();
+    } else if (uri.pathSegments[0] == AppRoute.pagePrefix(AppPages.search)) {
+      return AppRoute.search();
     }
   }
 

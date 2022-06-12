@@ -1,13 +1,24 @@
 import 'dart:typed_data';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 import 'package:flutter/material.dart';
+import 'package:tea_brew/core/repositories/tea_repository.dart';
+import 'package:tea_brew/core/router/bloc/router_bloc.dart';
+import 'package:tea_brew/core/router/router.dart';
+
+enum NfcDialogAction {
+  none,
+  read,
+  write,
+}
 
 class NfcDialog extends StatefulWidget {
-  const NfcDialog({Key? key, required this.teaID}) : super(key: key);
+  const NfcDialog({Key? key, this.teaID, this.routerBloc}) : super(key: key);
 
-  final String teaID;
+  final String? teaID;
+  final RouterBloc? routerBloc;
 
   @override
   State<NfcDialog> createState() => _NfcDialogState();
@@ -15,72 +26,114 @@ class NfcDialog extends StatefulWidget {
 
 class _NfcDialogState extends State<NfcDialog> {
   ValueNotifier<dynamic> result = ValueNotifier(null);
-  String _message = "Choose action";
+  String _message = "";
+  NfcDialogAction action = NfcDialogAction.none;
+  late final NavigatorState navigator;
+  late final AbstractTeaRepository teaRepository;
 
-  void _tagRead() {
-    setState(() {
-      _message = "Touch an NFC tag to read...";
-    });
+  @override
+  void initState() {
+    super.initState();
+    teaRepository = RepositoryProvider.of<AbstractTeaRepository>(context);
+
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-      Ndef? ndef = Ndef.from(tag);
+      await _onTagDiscovered(tag);
+    });
 
-      NdefMessage? message = await ndef?.read();
-      if (message != null) {
-        for (var record in message.records) {
-          setState(() {
-            _message = String.fromCharCodes(record.payload);
-          });
-        }
-      }
-      Future.delayed(const Duration(seconds: 1), () {
-        NfcManager.instance.stopSession();
+    if (widget.teaID != null) {
+      action = NfcDialogAction.write;
+    } else {
+      action = NfcDialogAction.read;
+    }
+
+    navigator = Navigator.of(context);
+  }
+
+  Future<void> _onTagDiscovered(NfcTag tag) async {
+    setState(() {
+      _message = "";
+    });
+    if (action == NfcDialogAction.none) {
+      return;
+    }
+    if (action == NfcDialogAction.read) {
+      return _tagRead(tag);
+    }
+    if (action == NfcDialogAction.write) {
+      return _tagWrite(tag);
+    }
+  }
+
+  Future<void> _parseRecord(NdefRecord record) async {
+    var stringMessage = String.fromCharCodes(record.payload);
+    try {
+      var teaID = stringMessage.split(":")[1];
+      var tea = await teaRepository.getTeaByID(teaID);
+
+      navigator.pop();
+      widget.routerBloc?.add(
+        RouterPush(route: AppRoute.detail(tea: tea)),
+      );
+    } catch (_) {
+      setState(() {
+        _message = "Tea not found";
       });
+    }
+
+    setState(() {
+      _message = stringMessage;
     });
   }
 
-  void _ndefWrite() {
-    setState(() {
-      _message = "Touch an NFC tag to write...";
-    });
-    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-      var ndef = Ndef.from(tag);
-      if (ndef == null || !ndef.isWritable) {
-        setState(() {
-          _message = "Tag is not compatible with NDEF";
-        });
+  Future<void> _tagRead(NfcTag tag) async {
+    Ndef? ndef = Ndef.from(tag);
 
-        Future.delayed(const Duration(seconds: 1), () {
-          NfcManager.instance.stopSession();
-        });
-        return;
+    try {
+      NdefMessage? message = await ndef?.read();
+      if (message != null) {
+        for (var record in message.records) {
+          _parseRecord(record);
+        }
       }
+    } catch (e) {
+      setState(() {
+        _message = "Error reading tag";
+      });
+    }
+  }
 
-      NdefMessage message = NdefMessage([
-        NdefRecord.createMime(
-          'text/plain',
-          Uint8List.fromList(widget.teaID.codeUnits),
-        ),
-      ]);
+  Future<void> _tagWrite(NfcTag tag) async {
+    var ndef = Ndef.from(tag);
+    if (ndef == null || !ndef.isWritable) {
+      setState(() {
+        _message = "Tag is not compatible with NDEF";
+      });
+      return;
+    }
 
-      try {
-        await ndef.write(message);
+    NdefMessage message = NdefMessage([
+      NdefRecord.createMime(
+        'text/plain',
+        Uint8List.fromList(("teabrew:${widget.teaID!}").codeUnits),
+      ),
+    ]);
 
-        setState(() {
-          _message = "Tag is not compatible with NDEF";
-        });
-        NfcManager.instance.stopSession();
-      } catch (e) {
-        setState(() {
-          _message = "Error: $e";
-        });
+    try {
+      await ndef.write(message);
 
-        Future.delayed(const Duration(seconds: 1), () {
-          NfcManager.instance
-              .stopSession(errorMessage: result.value.toString());
-        });
-        return;
-      }
-    });
+      setState(() {
+        _message = "Tag written";
+      });
+    } catch (e) {
+      setState(() {
+        _message = "Error: $e";
+      });
+
+      Future.delayed(const Duration(seconds: 1), () {
+        NfcManager.instance.stopSession(errorMessage: result.value.toString());
+      });
+      return;
+    }
   }
 
   @override
@@ -91,6 +144,9 @@ class _NfcDialogState extends State<NfcDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
     return FutureBuilder<bool>(
       future: NfcManager.instance.isAvailable(),
       builder: (context, snapshot) {
@@ -104,11 +160,28 @@ class _NfcDialogState extends State<NfcDialog> {
             child: Text('NFC is not available'),
           );
         }
-        return Column(
+        return Flex(
+          direction: isPortrait ? Axis.vertical : Axis.horizontal,
           children: [
-            Text(_message),
-            ElevatedButton(onPressed: _tagRead, child: const Text("Read")),
-            ElevatedButton(onPressed: _ndefWrite, child: const Text("Write")),
+            SizedBox(
+              width: isPortrait ? double.infinity : 300,
+              height: isPortrait ? 400 : double.infinity,
+              child: Lottie.asset("assets/lottie/nfc.json"),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (action == NfcDialogAction.none) const Text(""),
+                    if (action == NfcDialogAction.read)
+                      const Text("Touch a tag to open the tea"),
+                    if (action == NfcDialogAction.write)
+                      const Text("Touch a tag to save current tea"),
+                    if (_message.isNotEmpty) Text(_message),
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       },

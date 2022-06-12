@@ -13,6 +13,8 @@ class AppRoute {
         return 'settings';
       case AppPages.timer:
         return 'timer';
+      case AppPages.search:
+        return 'search';
       case AppPages.synchronizer:
         return 'synchronizer';
     }
@@ -42,6 +44,8 @@ class AppRoute {
         return 'Settings';
       case AppPages.timer:
         return 'Timer';
+      case AppPages.search:
+        return 'Search';
       case AppPages.synchronizer:
         return 'Synchronizer';
     }
@@ -52,6 +56,7 @@ class AppRoute {
   AppRoute.detail({required this.tea}) : page = AppPages.detail;
   AppRoute.timer() : page = AppPages.timer;
   AppRoute.unknown() : page = AppPages.unknown;
+  AppRoute.search() : page = AppPages.search;
   AppRoute.synchronizer() : page = AppPages.synchronizer;
 
   bool isPage(AppPages reqPage) => reqPage == page;

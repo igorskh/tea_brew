@@ -48,6 +48,8 @@ dependencies:
   hive: ^2.2.1
   hive_flutter: ^1.1.0
 
+  lottie: ^1.3.0
+
   # Local Notifications
   flutter_local_notifications: ^9.5.3+1
   timezone: ^0.8.0
@@ -95,7 +97,7 @@ flutter:
      - assets/vectors/leaf.svg
      - assets/images/gyokuro.jpg
      - assets/images/wakocha.jpg
-
+     - assets/lottie/nfc.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
