@@ -17,6 +17,8 @@ class AppRoute {
         return 'search';
       case AppPages.synchronizer:
         return 'synchronizer';
+      case AppPages.exporter:
+        return 'exporter';
     }
   }
 
@@ -32,25 +34,6 @@ class AppRoute {
     return resPath;
   }
 
-  String get key {
-    switch (page) {
-      case AppPages.home:
-        return 'Home';
-      case AppPages.unknown:
-        return 'Unknown';
-      case AppPages.detail:
-        return 'Detail';
-      case AppPages.settings:
-        return 'Settings';
-      case AppPages.timer:
-        return 'Timer';
-      case AppPages.search:
-        return 'Search';
-      case AppPages.synchronizer:
-        return 'Synchronizer';
-    }
-  }
-
   AppRoute.home() : page = AppPages.home;
   AppRoute.settings() : page = AppPages.settings;
   AppRoute.detail({required this.tea}) : page = AppPages.detail;
@@ -58,6 +41,7 @@ class AppRoute {
   AppRoute.unknown() : page = AppPages.unknown;
   AppRoute.search() : page = AppPages.search;
   AppRoute.synchronizer() : page = AppPages.synchronizer;
+  AppRoute.exporter() : page = AppPages.exporter;
 
   bool isPage(AppPages reqPage) => reqPage == page;
 }

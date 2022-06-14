@@ -16,6 +16,8 @@ AppRoute parseRoute(Uri uri) {
       return AppRoute.settings();
     } else if (uri.pathSegments[0] == AppRoute.pagePrefix(AppPages.search)) {
       return AppRoute.search();
+    } else if (uri.pathSegments[0] == AppRoute.pagePrefix(AppPages.exporter)) {
+      return AppRoute.exporter();
     }
   }
 

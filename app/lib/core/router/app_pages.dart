@@ -1,3 +1,12 @@
 part of 'router.dart';
 
-enum AppPages { home, settings, unknown, detail, timer, synchronizer, search }
+enum AppPages {
+  home,
+  settings,
+  unknown,
+  detail,
+  timer,
+  synchronizer,
+  search,
+  exporter,
+}

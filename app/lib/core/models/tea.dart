@@ -61,4 +61,9 @@ class Tea extends HiveObject {
   factory Tea.fromJson(Map<String, dynamic> json) => _$TeaFromJson(json);
 
   Map<String, dynamic> toJson() => _$TeaToJson(this);
+  Map<String, dynamic> toBasicJson() {
+    final result = _$TeaToJson(this);
+    result.remove("category");
+    return result;
+  }
 }

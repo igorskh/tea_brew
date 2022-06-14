@@ -15,6 +15,12 @@ class Header extends StatelessWidget {
       );
     }
 
+    void _onNavigateExporter() {
+      BlocProvider.of<RouterBloc>(context).add(
+        RouterPush(route: AppRoute.exporter()),
+      );
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -34,9 +40,17 @@ class Header extends StatelessWidget {
             )
           ],
         ),
-        IconButton(
-          onPressed: _onNavigateSearch,
-          icon: const Icon(Icons.search),
+        Wrap(
+          children: [
+            IconButton(
+              onPressed: _onNavigateSearch,
+              icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: _onNavigateExporter,
+              icon: const Icon(Icons.import_export),
+            ),
+          ],
         ),
       ],
     );

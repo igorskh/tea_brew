@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tea_brew/pages/home_page.dart';
 import 'package:tea_brew/pages/catalog/details/details_page.dart';
 import 'package:tea_brew/pages/search/search_page.dart';
+import 'package:tea_brew/pages/settings/export_page.dart';
 import 'package:tea_brew/pages/settings/synchronizer_page.dart';
 import 'package:tea_brew/pages/timer/timer_page.dart';
 import 'package:tea_brew/pages/unknown_page.dart';
@@ -13,7 +14,7 @@ Page routeToPage(AppRoute route) {
   final Widget child;
 
   final String path = route.path;
-  final ValueKey key = ValueKey(route.key);
+  final ValueKey key = ValueKey(AppRoute.pagePrefix(route.page));
 
   if (route.isPage(AppPages.home)) {
     child = const HomePage();
@@ -27,6 +28,8 @@ Page routeToPage(AppRoute route) {
     child = const SearchPage();
   } else if (route.isPage(AppPages.synchronizer)) {
     child = const SynchronizerPage();
+  } else if (route.isPage(AppPages.exporter)) {
+    child = const TeaExportPage();
   } else {
     child = const UnknownPage();
   }
