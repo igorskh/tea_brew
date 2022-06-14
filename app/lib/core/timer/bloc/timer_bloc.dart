@@ -26,7 +26,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   TimerBloc({
     required Ticker ticker,
-    required this.localNotificationsPlugin,
+    this.localNotificationsPlugin,
   })  : _ticker = ticker,
         super(TimerStopped(duration: 1)) {
     on<TimerStart>(_onTimerStart);
